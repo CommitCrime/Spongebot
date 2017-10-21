@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Botsy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        SizeToContent="WidthAndHeight"
+        Background="SlateGray"
+        Title="Science, Fishes!">
+    <StackPanel>
+        <Label>Cursor:</Label>
+        <Image x:Name="cursor" Height="32" Width="32"></Image>
+        <Label>Screenshot:</Label>
+        <Image x:Name="screenshot" Height="360" Width="640"/>
+        <DockPanel>
+            <Button x:Name="screenshotBtn" Click="Screenshot_Now" DockPanel.Dock="Left">ScreenShot</Button>
+            <Label DockPanel.Dock="Left"></Label>
+            <Button Click="Screenshot_in5" DockPanel.Dock="Left">ScreenShot in 5s</Button>
+            <Label DockPanel.Dock="Right"></Label>
+        </DockPanel>
+    </StackPanel>
 </Window>
