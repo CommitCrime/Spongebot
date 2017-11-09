@@ -34,7 +34,7 @@ namespace SpongeBot
         }
 
         public SpiralCoordinateProvider(Rect area) : this(area, DEFAULT_STEPSIZE) { }
-        public SpiralCoordinateProvider(double step) : this(new Rect(0, 0, SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight), step) { }
+        public SpiralCoordinateProvider(double step) : this(new Rect(0, 0, Utility.Screen.getActualPrimaryScreenWidth(), Utility.Screen.getActualPrimaryScreenHeight()), step) { }
         public SpiralCoordinateProvider(Rect area, double step)
         {
             this.area = area;

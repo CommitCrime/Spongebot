@@ -25,7 +25,7 @@ namespace SpongeBot
         }
 
         public LineByLineCoordinateProvider(Rect area) : this(area, DEFAULT_STEPSIZE) { }
-        public LineByLineCoordinateProvider(double step) : this(new Rect(0, 0, SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight), step) { }
+        public LineByLineCoordinateProvider(double step) : this(new Rect(0, 0, Utility.Screen.getActualPrimaryScreenWidth(), Utility.Screen.getActualPrimaryScreenHeight()), step) { }
         public LineByLineCoordinateProvider(Rect area, double step)
         {
             this.area = area;

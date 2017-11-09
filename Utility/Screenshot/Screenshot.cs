@@ -11,8 +11,8 @@ namespace SpongeBot.Utility
     {
         public Image GetScreenshot()
         {
-            int screenWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-            int screenHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+            int screenWidth = (int)Screen.getActualPrimaryScreenWidth();
+            int screenHeight = (int)Screen.getActualPrimaryScreenHeight();
 
 
             Bitmap target = new Bitmap(screenWidth, screenHeight);

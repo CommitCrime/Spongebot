@@ -135,8 +135,8 @@ namespace SpongeBot
             //Point F_initialMousePos = MouseInteropHelper.getCursorPos();
             Input.Mouse.User32_MousePosition mousePos = new Input.Mouse.User32_MousePosition();
 
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double screenWidth = Screen.getActualPrimaryScreenWidth();
+            double screenHeight = Screen.getActualPrimaryScreenHeight();
 
             Point rectLocation = mousePos.GetCursorPos(); //get MousePos --> center of new rect
             rectLocation.Offset(-screenWidth / 4, -screenWidth / 4); //move point to use it as rect location
@@ -205,7 +205,7 @@ namespace SpongeBot
             else
                 screenshotImg = new Utility.Screenshot().GetScreenshot();
 
-            screenshotImg = new Utility.BicubicImageResize().ResizeImage(screenshotImg, new System.Drawing.Size(256, 144));
+            //screenshotImg = new Utility.BicubicImageResize().ResizeImage(screenshotImg, new System.Drawing.Size(256, 144));
             BitmapSource screenStream = GetImageStream(screenshotImg);
             this.screenshot.Source = screenStream;
 
