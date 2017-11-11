@@ -9,6 +9,8 @@ namespace SpongeBot.Input.Keyboard
 {
     class User32_SendInput
     {
+        log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Declaration of external SendInput method
         /// </summary>

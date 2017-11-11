@@ -18,9 +18,12 @@ namespace SpongeBot
 {
     public abstract class HotKeyWindow : Window
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public HotKeyWindow()
         {
             //Register Hotkey:
+            log.Debug("Create HotKeyWindow and reserve window handle.");
             var helper = new WindowInteropHelper(this);
             helper.EnsureHandle();  //get a handle witthout the need to show the window
             _source = HwndSource.FromHwnd(helper.Handle);
@@ -33,15 +36,18 @@ namespace SpongeBot
         #region native hotkey stuff
         internal void RegisterHotKey(Utility.Hotkey.Modifier mod, Utility.Hotkey.KeyCode key)
         {
+            log.Debug("Registering Hotkey.");
             var helper = new WindowInteropHelper(this);
             if (!RegisterHotKey(helper.Handle, HOTKEY_ID, (uint)mod, (uint)key))
             {
                 // handle error
+                log.Error("Could not register hotkey!");
             }
         }
 
         internal void UnregisterHotKey()
         {
+            log.Debug("Unregister Hotkey");
             var helper = new WindowInteropHelper(this);
             UnregisterHotKey(helper.Handle, HOTKEY_ID);
         }
@@ -49,6 +55,7 @@ namespace SpongeBot
 
         protected override void OnClosed(EventArgs e)
         {
+            log.Debug("Closing.");
             _source.RemoveHook(HwndHook);
             _source = null;
             UnregisterHotKey();
@@ -64,6 +71,7 @@ namespace SpongeBot
                     switch (wParam.ToInt32())
                     {
                         case HOTKEY_ID:
+
                             OnHotKeyPressed();
                             handled = true;
                             break;

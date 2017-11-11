@@ -10,6 +10,8 @@ namespace SpongeBot
 {
     class SpiralCoordinateProvider : IEnumerator<Point>
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private const double DEFAULT_STEPSIZE = 20;
         private Rect area;
         private double step;

@@ -41,6 +41,9 @@
     <Reference Include="Gma.System.MouseKeyHook, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MouseKeyHook.5.4.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio, Version=1.8.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\NAudio.1.8.3\lib\net35\NAudio.dll</HintPath>
     </Reference>
@@ -80,6 +83,7 @@
     <Compile Include="Utility\IImageResize.cs" />
     <Compile Include="Input\Mouse\Cursor.cs" />
     <Compile Include="Input\Mouse\CursorScreenshot.cs" />
+    <Compile Include="Utility\ILogExtensions.cs" />
     <Compile Include="Utility\Screen.cs" />
     <Compile Include="Utility\Screenshot\IScreenshot.cs" />
     <Compile Include="Utility\Screenshot\Screenshot.cs" />
@@ -120,12 +124,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

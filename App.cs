@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace SpongeBot
 {
     class App
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(typeof(App));
         [STAThread]
         static void Main(string[] args)
         {
-            Console.WriteLine("Launch my app!");
             new App();
         }
 
@@ -21,14 +24,17 @@ namespace SpongeBot
 
         public App()
         {
+            log.Info("Launch my app!");
+
             app = new Application();
-            app.ShutdownMode = ShutdownMode.OnExplicitShutdown; //You couldn't launch a window after closing the first otherwise
+            //app.ShutdownMode = ShutdownMode.OnExplicitShutdown; //You couldn't launch a window after closing the first otherwise
             app.Startup += appStarted;
             app.Run();
         }
 
         private void appStarted(object sender, StartupEventArgs e)
         {
+            log.Info("App started.");
             new MainWindow().Show();
         }
     }
