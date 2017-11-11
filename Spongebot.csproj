@@ -84,7 +84,7 @@
     <Compile Include="Input\Mouse\Cursor.cs" />
     <Compile Include="Input\Mouse\CursorScreenshot.cs" />
     <Compile Include="Utility\ILogExtensions.cs" />
-    <Compile Include="Utility\Screen.cs" />
+    <Compile Include="Utility\UI.cs" />
     <Compile Include="Utility\Screenshot\IScreenshot.cs" />
     <Compile Include="Utility\Screenshot\Screenshot.cs" />
     <Page Include="MainWindow.xaml">

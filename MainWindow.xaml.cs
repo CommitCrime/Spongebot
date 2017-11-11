@@ -144,7 +144,7 @@ namespace SpongeBot
 
             fiveSeconds = new Timer((state) =>
             {
-                Application.Current.Dispatcher.BeginInvoke((Action)(() => Screenshot_Now(sender, e)));
+                UI.ExecuteAsync(() => { Screenshot_Now(sender, e); });
             }, null, TimeSpan.FromSeconds(5), TimeSpan.FromMilliseconds(-1));
         }
 
@@ -153,8 +153,8 @@ namespace SpongeBot
             //Point F_initialMousePos = MouseInteropHelper.getCursorPos();
             Input.Mouse.User32_MousePosition mousePos = new Input.Mouse.User32_MousePosition();
 
-            double screenWidth = Screen.getActualPrimaryScreenWidth();
-            double screenHeight = Screen.getActualPrimaryScreenHeight();
+            double screenWidth = UI.getActualPrimaryScreenWidth();
+            double screenHeight = UI.getActualPrimaryScreenHeight();
 
             Point rectLocation = mousePos.GetCursorPos(); //get MousePos --> center of new rect
             log.Debug($"Start searching for hook at {rectLocation.ToString()}.");

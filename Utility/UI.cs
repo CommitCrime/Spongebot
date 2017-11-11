@@ -7,13 +7,11 @@ using System.Windows;
 
 namespace SpongeBot.Utility
 {
-    class Screen
+    class UI
     {
-
-
         public static double getWidthScalingFactor()
         {
-            return (double)Screen.execute(() => 
+            return (double)UI.Execute(() => 
             { 
                 // execute on UI thread due to Access restriction 
                 PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
@@ -23,7 +21,7 @@ namespace SpongeBot.Utility
 
         public static double getHeightScalingFactor()
         {
-            return (double)Screen.execute(() =>
+            return (double)UI.Execute(() =>
             {
                 // execute on UI thread due to Access restriction
                 PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
@@ -44,10 +42,14 @@ namespace SpongeBot.Utility
             return scaledScreenHeight * getWidthScalingFactor();
         }
 
-        private static object execute(Func<object> someFunction)
+        public static object Execute(Func<object> someFunction)
         {
             return Application.Current.Dispatcher.Invoke(someFunction);
         }
 
+        public static void ExecuteAsync(Action someFunction)
+        {
+            Application.Current.Dispatcher.BeginInvoke(someFunction);
+        }
     }
 }

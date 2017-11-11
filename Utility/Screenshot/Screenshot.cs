@@ -11,8 +11,8 @@ namespace SpongeBot.Utility
     {
         public Image GetScreenshot()
         {
-            int screenWidth = (int)Screen.getActualPrimaryScreenWidth();
-            int screenHeight = (int)Screen.getActualPrimaryScreenHeight();
+            int screenWidth = (int)UI.getActualPrimaryScreenWidth();
+            int screenHeight = (int)UI.getActualPrimaryScreenHeight();
 
 
             Bitmap target = new Bitmap(screenWidth, screenHeight);
