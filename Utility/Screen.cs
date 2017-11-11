@@ -13,16 +13,22 @@ namespace SpongeBot.Utility
 
         public static double getWidthScalingFactor()
         {
-            PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
-            return _presentationSource.CompositionTarget.TransformToDevice.M11;
-
+            return (double)Screen.execute(() => 
+            { 
+                // execute on UI thread due to Access restriction 
+                PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
+                return _presentationSource.CompositionTarget.TransformToDevice.M11;
+            });
         }
 
         public static double getHeightScalingFactor()
         {
-            PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
-            return _presentationSource.CompositionTarget.TransformToDevice.M22;
-
+            return (double)Screen.execute(() =>
+            {
+                // execute on UI thread due to Access restriction
+                PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
+                return _presentationSource.CompositionTarget.TransformToDevice.M22;
+            });
         }
 
         public static double getActualPrimaryScreenWidth()
@@ -37,5 +43,11 @@ namespace SpongeBot.Utility
             int scaledScreenHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
             return scaledScreenHeight * getWidthScalingFactor();
         }
+
+        private static object execute(Func<object> someFunction)
+        {
+            return Application.Current.Dispatcher.Invoke(someFunction);
+        }
+
     }
 }
