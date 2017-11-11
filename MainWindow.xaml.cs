@@ -169,7 +169,7 @@ namespace SpongeBot
             {
                 // 1 Move Cursor
                 Point p = coords.Current;
-                log.Trace($"Set mouse pos at {p.ToString()}).");
+                log.Trace($"Set mouse pos at {p.ToString()}.");
                 mousePos.SetCursorPos(p);
 
                 Thread.Sleep(10);
@@ -252,7 +252,7 @@ namespace SpongeBot
                 {
                     if (bmp1.GetPixel(x, y) != bmp2.GetPixel(x, y))
                     {
-                        log.Debug($"Bitmaps are not equal. Pixel ({x},{y}) does not match.");
+                        log.Trace($"Bitmaps are not equal. Pixel ({x},{y}) does not match.");
                         return false;
                     }
                 }
