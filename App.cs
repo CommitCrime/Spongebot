@@ -27,6 +27,11 @@ namespace SpongeBot
             log.Info("Launch my app!");
 
             app = new Application();
+
+            ResourceDictionary myResourceDictionary = new ResourceDictionary();
+            myResourceDictionary.Source = new Uri("Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml", UriKind.Relative);
+            app.Resources.MergedDictionaries.Add(myResourceDictionary);
+
             //app.ShutdownMode = ShutdownMode.OnExplicitShutdown; //You couldn't launch a window after closing the first otherwise
             app.Startup += appStarted;
             app.Run();
