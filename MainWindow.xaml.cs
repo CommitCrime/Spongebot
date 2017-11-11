@@ -74,18 +74,20 @@ namespace SpongeBot
         {
             try
             {
+
+                // 1 Cast fishing
                 log.Debug("Cast fishing");
-                // do stuff
                 Input.Keyboard.ISendString send = new Input.Keyboard.User32_SendInput_VirtualKeycode();
                 send.SendString("1");
 
+                // 2 Find Bobber on screen
                 Thread.Sleep(100);
                 log.Debug("Try to find bobber.");
                 Point hookPos = getHookPos();
 
                 log.Info($"Found bobber at {hookPos.ToString()}");
 
-                // 3 Listen
+                // 3 Listen for catch noise
                 log.Debug("Start listening to audio output");
                 log.Debug("Get audio device");
                 // http://gigi.nullneuron.net/gigilabs/displaying-a-volume-meter-using-naudio/
@@ -104,7 +106,7 @@ namespace SpongeBot
                     Thread.Sleep(100);
                 }
 
-                // 4 Click
+                // 4 Click on Bobber
                 log.Info($"Click bobber at {hookPos.ToString()}");
                 new Input.Mouse.User32_MouseClick(new Input.Mouse.User32_MousePosition()).Left(hookPos);
             }
@@ -163,7 +165,7 @@ namespace SpongeBot
             Rect halfScreenWidthSquare = new Rect(rectLocation, new Size(screenWidth / 2, screenWidth / 2));
             log.Debug($"Search for hook in area: {halfScreenWidthSquare.ToString()}");
 
-            IEnumerator<Point> coords = new SpiralCoordinateProvider(halfScreenWidthSquare);
+            IEnumerator<Point> coords = new CoordinateProvider.RectSpiral(halfScreenWidthSquare);
 
             while(coords.MoveNext() && timerEnabled)
             {

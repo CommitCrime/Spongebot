@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SpongeBot
+namespace SpongeBot.CoordinateProvider
 {
-    class LineByLineCoordinateProvider : IEnumerator
+    class LineByLine : IEnumerator
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -26,9 +26,9 @@ namespace SpongeBot
             }
         }
 
-        public LineByLineCoordinateProvider(Rect area) : this(area, DEFAULT_STEPSIZE) { }
-        public LineByLineCoordinateProvider(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
-        public LineByLineCoordinateProvider(Rect area, double step)
+        public LineByLine(Rect area) : this(area, DEFAULT_STEPSIZE) { }
+        public LineByLine(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
+        public LineByLine(Rect area, double step)
         {
             this.area = area;
             this.step = step;

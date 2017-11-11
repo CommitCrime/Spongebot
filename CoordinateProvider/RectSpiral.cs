@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SpongeBot
+namespace SpongeBot.CoordinateProvider
 {
-    class SpiralCoordinateProvider : IEnumerator<Point>
+    class RectSpiral : IEnumerator<Point>
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -35,9 +35,9 @@ namespace SpongeBot
             }
         }
 
-        public SpiralCoordinateProvider(Rect area) : this(area, DEFAULT_STEPSIZE) { }
-        public SpiralCoordinateProvider(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
-        public SpiralCoordinateProvider(Rect area, double step)
+        public RectSpiral(Rect area) : this(area, DEFAULT_STEPSIZE) { }
+        public RectSpiral(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
+        public RectSpiral(Rect area, double step)
         {
             this.area = area;
             this.step = step;
