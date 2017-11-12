@@ -194,35 +194,6 @@ namespace SpongeBot
             throw new Exception("No Bobber found in area.");
         }
 
-
-        /// <summary>
-        /// https://stackoverflow.com/a/10077805
-        /// </summary>
-        /// <param name="myImage"></param>
-        /// <returns></returns>
-        public BitmapSource GetImageStream(System.Drawing.Image myImage)
-        {
-            log.Debug("Convert System.Drawing.image to BitMapSource");
-            var bitmap = new System.Drawing.Bitmap(myImage);
-            IntPtr bmpPt = bitmap.GetHbitmap();
-            BitmapSource bitmapSource =
-             System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                   bmpPt,
-                   IntPtr.Zero,
-                   Int32Rect.Empty,
-                   BitmapSizeOptions.FromEmptyOptions());
-
-            //freeze bitmapSource and clear memory to avoid memory leaks
-            bitmapSource.Freeze();
-            DeleteObject(bmpPt);
-
-            return bitmapSource;
-        }
-
-        [DllImport("gdi32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool DeleteObject(IntPtr value);
-
         private void Screenshot_Now(object sender, RoutedEventArgs e)
         {
             log.Debug("Taking a screenshot " + (this.includeCursor.IsChecked == true ? "with" : "without") + " Cursor.");
@@ -233,12 +204,18 @@ namespace SpongeBot
                 screenshotImg = new Utility.Screenshot().GetScreenshot();
 
             //screenshotImg = new Utility.BicubicImageResize().ResizeImage(screenshotImg, new System.Drawing.Size(256, 144));
-            BitmapSource screenStream = GetImageStream(screenshotImg);
+            BitmapSource screenStream = SpongeBot.Utility.NativeMethods.GetImageStream(screenshotImg);
             this.screenshot.Source = screenStream;
 
             System.Drawing.Image cursorImg = Input.Mouse.Cursor.GetCursorImg();
-            BitmapSource cursorStream = GetImageStream(cursorImg);
+            BitmapSource cursorStream = SpongeBot.Utility.NativeMethods.GetImageStream(cursorImg);
             this.cursor.Source = cursorStream;
+        }
+
+        private void Draw_Spiral_Click(object sender, RoutedEventArgs e)
+        {
+            Rect area = new Rect(new Size(this.screenshot.Width, this.screenshot.Height));
+            screenshot.Source = new CoordinateExample(new CoordinateProvider.ArchimedeanSpiral(area), area).getImage();
         }
 
         private bool Equals(System.Drawing.Bitmap bmp1, System.Drawing.Bitmap bmp2)

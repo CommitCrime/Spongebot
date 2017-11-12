@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace SpongeBot.CoordinateProvider
 {
-    class LineByLine : IEnumerator
+    class LineByLine : IEnumerator<Point>
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -19,6 +19,14 @@ namespace SpongeBot.CoordinateProvider
         public Point Current;
         
         object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        Point IEnumerator<Point>.Current
         {
             get
             {

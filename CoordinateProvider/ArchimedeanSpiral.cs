@@ -3,124 +3,104 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Collections;
 
 namespace SpongeBot.CoordinateProvider
 {
-    class ArchimedeanSpiral
+    class ArchimedeanSpiral : IEnumerator<Point>
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        internal static BitmapSource getImage()
+        private const double DEFAULT_STEPSIZE = 10;
+        private Rect area;
+        private double step;
+
+        public Point Current;
+        private Point spiralCenter;
+
+        private double theta, thetaMax;
+        private double awayStep;
+
+        private bool initialized = false;
+        private bool equidistant = false;
+
+        object IEnumerator.Current
         {
-            System.Drawing.Image img = draw();
-            BitmapSource imgStream = GetImageStream(img);
-            return imgStream;
-        }
-
-
-        private static Bitmap draw()
-        {
-            Bitmap target = new Bitmap(500, 500);
-            using (Graphics g = Graphics.FromImage(target))
+            get
             {
-                PointF p0 = new PointF(500 / 2, 500 / 2);
-                g.DrawRectangle(Pens.Red, new Rectangle((int)p0.X, (int)p0.Y, 1, 1));
-
-                int i = 0;
-                do
-                {
-                    PointF p1 = archimedeanPoint(i);
-                    //sg.DrawLine(Pens.Red, p0, p1);
-                    g.DrawRectangle(Pens.Blue, new Rectangle((int)p1.X, (int)p1.Y, 1,1));
-                    p0 = p1;
-                    i += 10;
-                } while (p0.X > 0 && p0.Y > 0);
+                return Current;
             }
-            return target;
         }
 
-
-
-        static PointF archimedeanPoint(int degrees)
+        Point IEnumerator<Point>.Current
         {
-            const double a = 15; //initial distance from center
-            const double b = 3; //gap between spiral lines
-            double t = degrees * Math.PI / 180;
-            double r = a + b * t;
-            return new PointF { X = (float)(500 / 2 + r * Math.Cos(t)), Y = (float)(500 / 2 + r * Math.Sin(t)) };
-        }
-
-
-
-        private static IList<Point> getSpiralCoords(Point center)
-        {
-            int stepSize = 11;
-
-            IList<Point> points = new List<Point>();
-            points.Add(center);
-
-            for (int i = stepSize; Math.Min(center.X, center.Y) - i > 0; i += stepSize)
+            get
             {
-                System.Windows.Rect bounds = new System.Windows.Rect(new System.Windows.Point(center.X - i, center.Y - i), new System.Windows.Point(center.X + i, center.Y + i));
+                return Current;
+            }
+        }
 
-                Point topLeft = new Point(center.X - i, center.Y - i);
-                Point p = topLeft;
-                do
-                {
-                    points.Add(p); // Point is a struct, and struct is not a reference type -> no need to create new Point
-                    if (p.Y <= bounds.Top && p.X < bounds.Right)
-                    {
-                        p.X += stepSize; //top left to top right
-                    }
-                    else if (p.X >= bounds.Right && p.Y < bounds.Bottom)
-                    {
-                        p.Y += stepSize; //top right to bottom right
-                    }
-                    else if (p.Y >= bounds.Bottom && p.X > bounds.Left)
-                    {
-                        p.X -= stepSize; //bottom right to bottom left
-                    }
-                    else if (p.X <= bounds.Left && p.Y > bounds.Top)
-                    {
-                        p.Y -= stepSize;
-                    }
-                    else throw new Exception("This position should not be possible");
+        public ArchimedeanSpiral(Rect area) : this(area, DEFAULT_STEPSIZE) { }
+        public ArchimedeanSpiral(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
+        public ArchimedeanSpiral(Rect area, double step)
+        {
+            this.area = area;
+            this.step = step;
+            double coilGap = step; //gap bewteen coils 
 
+            spiralCenter = new Point(area.X + area.Width/2, area.Y + area.Height/2);
 
-                } while (p != topLeft);
+            // find distance to nearest boundry:
+            double maxRadius = new[] { spiralCenter.X, spiralCenter.Y, area.Width - spiralCenter.X, area.Height - spiralCenter.Y }.Min();
+            // and calc number of coils to reach boundry
+            double numberOfCoils = Math.Ceiling(maxRadius / coilGap);
 
+            thetaMax = numberOfCoils * 2 * Math.PI; // radiant for numberOfCoils (1 coil = 2pi, 3 coils =3+2pi ...)
+            awayStep = maxRadius / thetaMax;
+        }
+
+        public void Dispose()
+        {
+            // empty
+        }
+
+        public bool MoveNext()
+        {
+            if (!initialized)
+            {
+                // initial position
+                Current = spiralCenter;
+                theta = step / awayStep;
+                initialized = true;
+                return true;
+            }
+            else if (theta <= thetaMax)
+            {
+                double away = awayStep * theta;
+
+                double x = spiralCenter.X + Math.Cos(theta) * away;
+                // double biasedX = spiralCenter.X + Math.Cos(around) * away * 16 / 9;
+                double y = spiralCenter.Y + Math.Sin(theta) * away;
+
+                if (equidistant)
+                    theta += step / away;
+                else
+                    theta += step * Math.PI / 180; // equiangular
+
+                Current = new Point(x, y);
+                return true;
             }
 
-            return points;
+            return false;
         }
 
-        /// <summary>
-        /// https://stackoverflow.com/a/10077805
-        /// </summary>
-        /// <param name="myImage"></param>
-        /// <returns></returns>
-        public static BitmapSource GetImageStream(System.Drawing.Image myImage)
+        public void Reset()
         {
-            var bitmap = new System.Drawing.Bitmap(myImage);
-            IntPtr bmpPt = bitmap.GetHbitmap();
-            BitmapSource bitmapSource =
-             System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                   bmpPt,
-                   IntPtr.Zero,
-                   System.Windows.Int32Rect.Empty,
-                   BitmapSizeOptions.FromEmptyOptions());
-
-            //freeze bitmapSource and clear memory to avoid memory leaks
-            bitmapSource.Freeze();
-            DeleteObject(bmpPt);
-
-            return bitmapSource;
+            initialized = false;
+            // will reset Current to spiralCenter and theta to 0
         }
-
-        [DllImport("gdi32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool DeleteObject(IntPtr value);
     }
 }

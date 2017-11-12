@@ -65,8 +65,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoordinateExample.cs" />
     <Compile Include="CoordinateProvider\ArchimedeanSpiral.cs" />
-    <Compile Include="CoordinateProvider\EquiDistantArchimedeanSpiral.cs" />
     <Compile Include="Input\Keyboard\ISendString.cs" />
     <Compile Include="Input\Keyboard\ScanCodeShort.cs" />
     <Compile Include="Input\Keyboard\User32_SendInput_VirtualKeycode.cs" />
@@ -86,6 +86,7 @@
     <Compile Include="Input\Mouse\Cursor.cs" />
     <Compile Include="Input\Mouse\CursorScreenshot.cs" />
     <Compile Include="Utility\ILogExtensions.cs" />
+    <Compile Include="Utility\NativeMethods.cs" />
     <Compile Include="Utility\UI.cs" />
     <Compile Include="Utility\Screenshot\IScreenshot.cs" />
     <Compile Include="Utility\Screenshot\Screenshot.cs" />

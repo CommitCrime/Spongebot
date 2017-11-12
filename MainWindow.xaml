@@ -25,6 +25,9 @@
             <Label DockPanel.Dock="Left"></Label>
             <Button Click="Screenshot_in5" DockPanel.Dock="Left">ScreenShot in 5s</Button>
             <Label DockPanel.Dock="Left"></Label>
+            <Button Click="Draw_Spiral_Click" DockPanel.Dock="Left">Draw Spiral</Button>
+            <Label DockPanel.Dock="Left"></Label>
+            
         </DockPanel>
     </StackPanel>
     
