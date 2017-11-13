@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,23 @@ namespace SpongeBot
     /// </summary>
     public partial class PreviewWindow : Window
     {
-        public PreviewWindow(BitmapSource imgSource)
+
+        public PreviewWindow(System.Drawing.Bitmap bmpSource)
         {
             InitializeComponent();
-            this.img.Source = imgSource;
-            this.img.Width = imgSource.Width;
-            this.img.Height = imgSource.Height;
+            MemoryStream memoryStream = new MemoryStream();
+            bmpSource.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+
+            XamlAnimatedGif.AnimationBehavior.SetSourceStream(img, memoryStream);
+        }
+
+        public PreviewWindow(GifBitmapEncoder gifSource)
+        {
+            InitializeComponent();
+            MemoryStream memoryStream = new MemoryStream();
+            gifSource.Save(memoryStream);
+
+            XamlAnimatedGif.AnimationBehavior.SetSourceStream(img, memoryStream);
         }
     }
 }

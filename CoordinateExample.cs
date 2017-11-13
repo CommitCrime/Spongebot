@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SpongeBot
 {
@@ -19,10 +20,23 @@ namespace SpongeBot
             this.rect = rect;
         }
 
+        public string getGifAsFile()
+        {
+            string fileName = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".gif";
+
+            using (FileStream fs = new FileStream(fileName, System.IO.FileMode.Create))
+            {
+                getGif().Save(fs);
+            }
+
+            return fileName;
+        }
+
         public GifBitmapEncoder getGif()
         {
             coordEnum.Reset();
-            System.Windows.Media.Imaging.GifBitmapEncoder gEnc = new GifBitmapEncoder();
+
+            GifBitmapEncoder gEnc = new GifBitmapEncoder();
 
             Bitmap target = new Bitmap((int)rect.Width, (int)rect.Height);
             using (Graphics g = Graphics.FromImage(target))
@@ -44,28 +58,31 @@ namespace SpongeBot
                     Int32Rect.Empty,
                     BitmapSizeOptions.FromEmptyOptions());
                 gEnc.Frames.Add(BitmapFrame.Create(src));
+
                 Utility.NativeMethods.DeleteObject(bmp); // recommended, handle memory leak
-            }
-
-
-            using (System.IO.FileStream fs = new System.IO.FileStream(@"D:\preview.gif", System.IO.FileMode.Create))
-            {
-                gEnc.Save(fs);
             }
 
 
             return gEnc;
         }
 
-        public BitmapSource getImage()
+        public string getBitmapAsFile()
+        {
+            string fileName = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".bmp";
+            getBitmap().Save(fileName);
+
+            return fileName;
+        }
+
+        public BitmapSource getWpfImage()
         {
             getGif();
-            System.Drawing.Image img = getLegacyImage();
+            Image img = getBitmap();
             BitmapSource imgStream = Utility.NativeMethods.GetImageStream(img);
             return imgStream;
         }
 
-        private Image getLegacyImage()
+        public Bitmap getBitmap()
         {
             coordEnum.Reset();
 

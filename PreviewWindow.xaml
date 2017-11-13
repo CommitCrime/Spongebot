@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpongeBot"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         Title="PreviewWindow">
     <StackPanel>
-        <Image Name="img"/>
+        <Image Name="img" Width="640" Height="360"/>
     </StackPanel>
 </Window>
