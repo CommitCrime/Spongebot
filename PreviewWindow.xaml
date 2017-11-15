@@ -9,6 +9,6 @@
         SizeToContent="WidthAndHeight"
         Title="PreviewWindow">
     <StackPanel>
-        <Image Name="img" Width="640" Height="360"/>
+        <Image Name="img" Width="160" Height="90"/>
     </StackPanel>
 </Window>

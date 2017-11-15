@@ -11,13 +11,13 @@ namespace SpongeBot
 {
     internal class CoordinateExample
     {
-        private IEnumerator<System.Windows.Point> coordEnum;
+        private ACoordinateProvider coordProvider;
         private Rect rect;
 
-        public CoordinateExample(IEnumerator<System.Windows.Point> someCoordEnum, Rect rect)
+        public CoordinateExample(ACoordinateProvider coordProvider)
         {
-            this.coordEnum = someCoordEnum;
-            this.rect = rect;
+            this.coordProvider = coordProvider;
+            this.rect = coordProvider.Area;
         }
 
         public string getGifAsFile()
@@ -34,7 +34,7 @@ namespace SpongeBot
 
         public GifBitmapEncoder getGif()
         {
-            coordEnum.Reset();
+            coordProvider.Reset();
 
             GifBitmapEncoder gEnc = new GifBitmapEncoder();
 
@@ -44,11 +44,11 @@ namespace SpongeBot
                 g.FillRectangle(Brushes.Black, 0, 0, 800, 450);
             }
 
-            while (coordEnum.MoveNext())
+            while (coordProvider.MoveNext())
             {
                 using (Graphics g = Graphics.FromImage(target))
                 {
-                    g.DrawRectangle(Pens.Turquoise, new Rectangle((int)(coordEnum.Current.X), (int)coordEnum.Current.Y, 1, 1));
+                    g.DrawRectangle(Pens.Turquoise, new Rectangle((int)(coordProvider.Current.X), (int)coordProvider.Current.Y, 1, 1));
                 }
 
                 var bmp = target.GetHbitmap();
@@ -84,16 +84,16 @@ namespace SpongeBot
 
         public Bitmap getBitmap()
         {
-            coordEnum.Reset();
+            coordProvider.Reset();
 
             Bitmap target = new Bitmap((int)rect.Width, (int)rect.Height);
             using (Graphics g = Graphics.FromImage(target))
             {
                 g.FillRectangle(Brushes.Black, 0, 0, 800, 450);
 
-                while (coordEnum.MoveNext())
+                while (coordProvider.MoveNext())
                 {
-                    g.DrawRectangle(Pens.Turquoise, new Rectangle((int)(coordEnum.Current.X), (int)coordEnum.Current.Y, 1, 1));
+                    g.DrawRectangle(Pens.Turquoise, new Rectangle((int)(coordProvider.Current.X), (int)coordProvider.Current.Y, 1, 1));
                 }
             }
 

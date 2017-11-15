@@ -21,21 +21,19 @@ namespace SpongeBot
     public partial class PreviewWindow : Window
     {
 
-        public PreviewWindow(System.Drawing.Bitmap bmpSource)
+        public PreviewWindow(CoordinateProvider.ACoordinateProvider coordProvider, bool animate = true)
         {
             InitializeComponent();
+            this.img.Width = coordProvider.Area.Width;
+            this.img.Height = coordProvider.Area.Height;
+
+
             MemoryStream memoryStream = new MemoryStream();
-            bmpSource.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-
-            XamlAnimatedGif.AnimationBehavior.SetSourceStream(img, memoryStream);
-        }
-
-        public PreviewWindow(GifBitmapEncoder gifSource)
-        {
-            InitializeComponent();
-            MemoryStream memoryStream = new MemoryStream();
-            gifSource.Save(memoryStream);
-
+            if(animate)
+                new CoordinateExample(coordProvider).getGif().Save(memoryStream);
+            else
+                new CoordinateExample(coordProvider).getBitmap().Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+            
             XamlAnimatedGif.AnimationBehavior.SetSourceStream(img, memoryStream);
         }
     }

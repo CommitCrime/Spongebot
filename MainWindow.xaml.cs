@@ -214,9 +214,8 @@ namespace SpongeBot
 
         private void Draw_Spiral_Click(object sender, RoutedEventArgs e)
         {
-            Rect area = new Rect(new Size(this.screenshot.Width, this.screenshot.Height));
-            
-            new PreviewWindow(new CoordinateExample(new CoordinateProvider.ArchimedeanSpiral(area), area).getGif()).Show();
+            Rect area = new Rect(new Size(160,90));
+            new PreviewWindow(new CoordinateProvider.ArchimedeanSpiral(area)).Show();
         }
 
         private bool Equals(System.Drawing.Bitmap bmp1, System.Drawing.Bitmap bmp2)

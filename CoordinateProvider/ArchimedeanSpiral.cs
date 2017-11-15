@@ -10,71 +10,53 @@ using System.Collections;
 
 namespace SpongeBot.CoordinateProvider
 {
-    class ArchimedeanSpiral : IEnumerator<Point>
+    class ArchimedeanSpiral : ACoordinateProvider
     {
-        private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        private const double DEFAULT_STEPSIZE = 10;
-        private Rect area;
-        private double step;
-
-        public Point Current;
+        public const double DEFAULT_STEPSIZE  = 10; //degres or arclength
         private Point spiralCenter;
 
         private double theta, thetaMax;
         private double awayStep;
 
         private bool initialized = false;
-        private bool equidistant = false;
+        public bool Equidistant { get; }
 
-        object IEnumerator.Current
+        public ArchimedeanSpiral(Rect area, double step = DEFAULT_STEPSIZE, bool equidistant = true) : base(area, step)
         {
-            get
-            {
-                return Current;
-            }
+            this.Equidistant = equidistant;
         }
 
-        Point IEnumerator<Point>.Current
+        private void init()
         {
-            get
-            {
-                return Current;
-            }
-        }
+            double coilGap = Step; //gap bewteen coils 
 
-        public ArchimedeanSpiral(Rect area) : this(area, DEFAULT_STEPSIZE) { }
-        public ArchimedeanSpiral(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
-        public ArchimedeanSpiral(Rect area, double step)
-        {
-            this.area = area;
-            this.step = step;
-            double coilGap = step; //gap bewteen coils 
-
-            spiralCenter = new Point(area.X + area.Width/2, area.Y + area.Height/2);
+            spiralCenter = new Point(Area.X + Area.Width / 2, Area.Y + Area.Height / 2);
 
             // find distance to nearest boundry:
-            double maxRadius = new[] { spiralCenter.X, spiralCenter.Y, area.Width - spiralCenter.X, area.Height - spiralCenter.Y }.Min();
+            double maxRadius = new[] { spiralCenter.X, spiralCenter.Y, Area.Width - spiralCenter.X, Area.Height - spiralCenter.Y }.Min();
             // and calc number of coils to reach boundry
             double numberOfCoils = Math.Ceiling(maxRadius / coilGap);
 
             thetaMax = numberOfCoils * 2 * Math.PI; // radiant for numberOfCoils (1 coil = 2pi, 3 coils =3+2pi ...)
             awayStep = maxRadius / thetaMax;
+
+            // initial position
+            Current = spiralCenter;
+            theta = Step / awayStep;
+
+            initialized = true;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             // empty
         }
 
-        public bool MoveNext()
+        public override bool MoveNext()
         {
             if (!initialized)
             {
-                // initial position
-                Current = spiralCenter;
-                theta = step / awayStep;
-                initialized = true;
+                init();
                 return true;
             }
             else if (theta <= thetaMax)
@@ -85,10 +67,10 @@ namespace SpongeBot.CoordinateProvider
                 // double biasedX = spiralCenter.X + Math.Cos(around) * away * 16 / 9;
                 double y = spiralCenter.Y + Math.Sin(theta) * away;
 
-                if (equidistant)
-                    theta += step / away;
+                if (Equidistant)
+                    theta += Step / away;
                 else
-                    theta += step * Math.PI / 180; // equiangular
+                    theta += Step * Math.PI / 180; // equiangular
 
                 Current = new Point(x, y);
                 return true;
@@ -97,7 +79,7 @@ namespace SpongeBot.CoordinateProvider
             return false;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             initialized = false;
             // will reset Current to spiralCenter and theta to 0
