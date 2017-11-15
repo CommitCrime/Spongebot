@@ -72,7 +72,7 @@
   <ItemGroup>
     <Compile Include="CoordinateExample.cs" />
     <Compile Include="CoordinateProvider\ArchimedeanSpiral.cs" />
-    <Compile Include="CoordinateProvider\ICoordinateProvider.cs" />
+    <Compile Include="CoordinateProvider\ACoordinateProvider.cs" />
     <Compile Include="Input\Keyboard\ISendString.cs" />
     <Compile Include="Input\Keyboard\ScanCodeShort.cs" />
     <Compile Include="Input\Keyboard\User32_SendInput_VirtualKeycode.cs" />
