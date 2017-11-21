@@ -7,8 +7,10 @@
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
+        SizeChanged="Window_SizeChanged"
+        ContentRendered="Window_ContentRendered"
         Title="PreviewWindow">
-    <StackPanel>
-        <Image Name="img" Width="160" Height="90"/>
-    </StackPanel>
+    <DockPanel Name="panel">
+        <Image DockPanel.Dock="Top" Name="img"/>
+    </DockPanel>
 </Window>

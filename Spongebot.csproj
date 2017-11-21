@@ -74,6 +74,10 @@
       <DependentUpon>BasicSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\BasicSettingsData.cs" />
+    <Compile Include="Controls\ScreenshotControl.xaml.cs">
+      <DependentUpon>ScreenshotControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CoordinateExample.cs" />
     <Compile Include="CoordinateProvider\ArchimedeanSpiral.cs" />
     <Compile Include="CoordinateProvider\ACoordinateProvider.cs" />
@@ -109,6 +113,10 @@
     <Page Include="Controls\BasicSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScreenshotControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -41,7 +41,6 @@ namespace SpongeBot
         {
             log.Info("App started.");
             new SettingsWindow().Show();
-            new MainWindow().Show();
         }
     }
 }

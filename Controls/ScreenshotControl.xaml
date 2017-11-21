@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="SpongeBot.Controls.ScreenshotControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpongeBot.Controls"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal">
+        <Button Click="Screenshot">Screenshot</Button>
+        <Label></Label>
+        <Button Click="CursorScreenshot">Screenshot with Cursor</Button>
+        <Label></Label>
+        <Button Tag="true" Click="Cursorshot">Cursor as Image</Button>
+        <Label></Label>
+        <DockPanel VerticalAlignment="Center" Margin="10, 0" MinWidth="200">
+            <Label DockPanel.Dock="Left" FontWeight="Bold">Delay:</Label>
+            <TextBox Text="{Binding ElementName=slDelay, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40"/>
+            <Slider Maximum="60" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slDelay" Margin="10, 0"/>
+        </DockPanel>
+
+    </StackPanel>
+</UserControl>

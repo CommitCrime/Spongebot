@@ -136,20 +136,6 @@ namespace SpongeBot
             m_GlobalHook.Dispose();
         }
 
-
-        private void Screenshot_in5(object sender, RoutedEventArgs e)
-        {
-            log.Debug("Will take a screenshot in 5s");
-
-            if (fiveSeconds != null)
-                fiveSeconds.Dispose();
-
-            fiveSeconds = new Timer((state) =>
-            {
-                UI.ExecuteAsync(() => { Screenshot_Now(sender, e); });
-            }, null, TimeSpan.FromSeconds(5), TimeSpan.FromMilliseconds(-1));
-        }
-
         private Point getHookPos()
         {
             //Point F_initialMousePos = MouseInteropHelper.getCursorPos();
@@ -192,6 +178,22 @@ namespace SpongeBot
             }
 
             throw new Exception("No Bobber found in area.");
+        }
+
+
+
+
+        private void Screenshot_in5(object sender, RoutedEventArgs e)
+        {
+            log.Debug("Will take a screenshot in 5s");
+
+            if (fiveSeconds != null)
+                fiveSeconds.Dispose();
+
+            fiveSeconds = new Timer((state) =>
+            {
+                UI.ExecuteAsync(() => { Screenshot_Now(sender, e); });
+            }, null, TimeSpan.FromSeconds(5), TimeSpan.FromMilliseconds(-1));
         }
 
         private void Screenshot_Now(object sender, RoutedEventArgs e)
