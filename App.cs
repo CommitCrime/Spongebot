@@ -40,6 +40,7 @@ namespace SpongeBot
         private void appStarted(object sender, StartupEventArgs e)
         {
             log.Info("App started.");
+            new SettingsWindow().Show();
             new MainWindow().Show();
         }
     }

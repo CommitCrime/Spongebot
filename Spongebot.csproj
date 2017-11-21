@@ -70,6 +70,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BasicSettings.xaml.cs">
+      <DependentUpon>BasicSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BasicSettingsData.cs" />
     <Compile Include="CoordinateExample.cs" />
     <Compile Include="CoordinateProvider\ArchimedeanSpiral.cs" />
     <Compile Include="CoordinateProvider\ACoordinateProvider.cs" />
@@ -89,6 +93,9 @@
     <Compile Include="PreviewWindow.xaml.cs">
       <DependentUpon>PreviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utility\BicubicImageResize.cs" />
     <Compile Include="Utility\Hotkey.cs" />
     <Compile Include="Utility\IImageResize.cs" />
@@ -99,6 +106,10 @@
     <Compile Include="Utility\UI.cs" />
     <Compile Include="Utility\Screenshot\IScreenshot.cs" />
     <Compile Include="Utility\Screenshot\Screenshot.cs" />
+    <Page Include="Controls\BasicSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +122,10 @@
     <Page Include="PreviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\MetroDark\MetroDark.MSControls.Core.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +169,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
