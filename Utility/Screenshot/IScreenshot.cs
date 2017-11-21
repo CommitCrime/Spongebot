@@ -9,6 +9,6 @@ namespace SpongeBot.Utility
 {
     interface IScreenshot
     {
-        Image GetScreenshot();
+        Bitmap GetScreenshot();
     }
 }

@@ -9,7 +9,7 @@ namespace SpongeBot.Utility
 {
     class Screenshot : IScreenshot
     {
-        public Image GetScreenshot()
+        public Bitmap GetScreenshot()
         {
             int screenWidth = (int)UI.getActualPrimaryScreenWidth();
             int screenHeight = (int)UI.getActualPrimaryScreenHeight();

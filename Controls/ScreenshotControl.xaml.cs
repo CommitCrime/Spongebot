@@ -36,7 +36,7 @@ namespace SpongeBot.Controls
             log.Debug($"Will take a screenshot in {this.slDelay.Value}s");
             executeDelayed(() =>
             {
-                new PreviewWindow(new Utility.Screenshot().GetScreenshot()).Show();
+                new PreviewWindow(new Utility.Screenshot().GetScreenshot(), 0.5).Show();
             });
         }
 
@@ -45,7 +45,7 @@ namespace SpongeBot.Controls
             log.Debug($"Taking a screenshot with cursor in {this.slDelay.Value}s");
             executeDelayed(() =>
             {
-                new PreviewWindow(new Input.Mouse.CursorScreenshot().GetScreenshot()).Show();
+                new PreviewWindow(new Input.Mouse.CursorScreenshot().GetScreenshot(), 0.5).Show();
             });
         }
 
@@ -65,7 +65,7 @@ namespace SpongeBot.Controls
             log.Debug($"Taking a image of the cursor {this.slDelay.Value}s.");
             executeDelayed(() =>
             {
-                new PreviewWindow(Input.Mouse.Cursor.GetCursorImg(), 1).Show();
+                new PreviewWindow(Input.Mouse.Cursor.GetCursorImg()).Show();
             });
         }
     }

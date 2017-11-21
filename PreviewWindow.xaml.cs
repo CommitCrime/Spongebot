@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,43 +21,70 @@ namespace SpongeBot
     public partial class PreviewWindow : Window
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        bool animated = false;
+        MemoryStream memoryStream = new MemoryStream();
 
-        public PreviewWindow(System.Drawing.Image image, double scale = 0.5)
+        public PreviewWindow(System.Drawing.Bitmap image, double scale = 1)
         {
-            InitializeComponent();
+            init(new Size(image.Width, image.Height), scale);
+            image.Save(this.memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
             this.img.Source = Utility.NativeMethods.GetImageStream(image);
-            log.Debug($"Preview imag. Size {image.Width}x{image.Height}");
-            this.panel.Width = image.Width * scale;
-            this.panel.Height = image.Height * scale;
         }
 
-        public PreviewWindow(CoordinateProvider.ACoordinateProvider coordProvider, bool animate = true)
+        public PreviewWindow(CoordinateProvider.ACoordinateProvider coordProvider, bool animate = true, double scale =  1)
         {
-            InitializeComponent();
-            this.Width = coordProvider.Area.Width;
-            this.Height = coordProvider.Area.Height;
-
+            this.animated = animate;
+            init(coordProvider.Area.Size, scale);
 
             MemoryStream memoryStream = new MemoryStream();
             if(animate)
                 new CoordinateExample(coordProvider).getGif().Save(memoryStream);
             else
                 new CoordinateExample(coordProvider).getBitmap().Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-            
+
+            memoryStream.CopyTo(this.memoryStream);
+
             XamlAnimatedGif.AnimationBehavior.SetSourceStream(img, memoryStream);
+        }
+
+        private void init(Size size, double scale = 1)
+        {
+            InitializeComponent();
+            log.Debug($"Preview imag. Size {size}.");
+            this.img.Width = size.Width * scale;
+            this.img.Height = size.Height * scale;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             log.Trace($"Size changed from {e.PreviousSize} to {e.NewSize}.");
-
+            this.img.Height = this.panel.ActualHeight - this.btnSave.MinHeight; //otherwise the image would push the btn out of visible area
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
+            // we will reset the image's size, which would resize the window, so we disable sizetocontent as the window is already rendered
             this.SizeToContent = SizeToContent.Manual;
-            this.panel.Width = Double.NaN;
-            this.panel.Height = Double.NaN;
+            // to make img adapt to window size, we reset the width to Auto:
+            this.img.Width = Double.NaN;
+            this.img.Height = Double.NaN;
+        }
+
+        private void Save_Img(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.SaveFileDialog saveDialog = new System.Windows.Forms.SaveFileDialog();
+            if(animated)
+                saveDialog.Filter = "Image (*.gif)|*.gif|All files (*.*)|*.*";
+            else
+                saveDialog.Filter = "Image (*.bmp)|*.bmp|All files (*.*)|*.*";
+
+            saveDialog.FilterIndex = 1;
+            saveDialog.RestoreDirectory = true;
+
+            if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                memoryStream.WriteTo(saveDialog.OpenFile());
+            }
         }
     }
 }

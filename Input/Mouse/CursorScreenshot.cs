@@ -38,7 +38,7 @@ namespace SpongeBot.Input.Mouse
 
         const Int32 CURSOR_SHOWING = 0x00000001;
 
-        public new Image GetScreenshot()
+        public new Bitmap GetScreenshot()
         {
             Bitmap screenshot = base.GetScreenshot() as Bitmap;
 

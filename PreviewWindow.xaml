@@ -12,5 +12,6 @@
         Title="PreviewWindow">
     <DockPanel Name="panel">
         <Image DockPanel.Dock="Top" Name="img"/>
+        <Button DockPanel.Dock="Bottom" Click="Save_Img" Name="btnSave">Save</Button>
     </DockPanel>
 </Window>
