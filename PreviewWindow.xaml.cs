@@ -67,7 +67,7 @@ namespace SpongeBot
             this.SizeToContent = SizeToContent.Manual;
             // to make img adapt to window size, we reset the width to Auto:
             this.img.Width = Double.NaN;
-            this.img.Height = Double.NaN;
+            this.img.Height = this.panel.ActualHeight - this.btnSave.MinHeight; //otherwise the image would push the btn out of visible area
         }
 
         private void Save_Img(object sender, RoutedEventArgs e)
