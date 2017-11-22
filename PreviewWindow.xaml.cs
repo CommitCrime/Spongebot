@@ -58,16 +58,27 @@ namespace SpongeBot
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             log.Trace($"Size changed from {e.PreviousSize} to {e.NewSize}.");
-            this.img.Height = this.panel.ActualHeight - this.btnSave.MinHeight; //otherwise the image would push the btn out of visible area
+            fitImg();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             // we will reset the image's size, which would resize the window, so we disable sizetocontent as the window is already rendered
             this.SizeToContent = SizeToContent.Manual;
-            // to make img adapt to window size, we reset the width to Auto:
+            fitImg();
+        }
+
+        /// <summary>
+        /// The img should get bigger/smaller when the window is resized.
+        /// Normal img resize method is very greedy. it would push the button out of the visible area so it can display its content.
+        /// </summary>
+        private void fitImg()
+        {
+            // reset the width to Auto:
             this.img.Width = Double.NaN;
-            this.img.Height = this.panel.ActualHeight - this.btnSave.MinHeight; //otherwise the image would push the btn out of visible area
+            // to make img adapt to window size the height is set manually
+            // otherwise the image would push the btn out of visible area
+            this.img.Height = Math.Max(0, this.panel.ActualHeight - this.btnSave.MinHeight);
         }
 
         private void Save_Img(object sender, RoutedEventArgs e)
