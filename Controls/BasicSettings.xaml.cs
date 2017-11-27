@@ -22,7 +22,7 @@ namespace SpongeBot.Controls
     /// Interaktionslogik für WowInfo.xaml
     /// </summary>
     public partial class BasicSettings : UserControl
-    { 
+    {
         public BasicSettings()
         {
             InitializeComponent();

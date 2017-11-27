@@ -25,7 +25,6 @@ namespace SpongeBot
         public SettingsWindow()
         {
             InitializeComponent();
-            //img.Source = EquiDistantArchimedeanSpiral.getImage();
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)

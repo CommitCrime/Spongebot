@@ -11,12 +11,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using SpongeBot.Hotkey;
 
 namespace SpongeBot.Controls
 {
 
     class BasicSettingsData : INotifyPropertyChanged
     {
+        //private HotkeyListener hotkeyListener;
         #region fiels and properties
         Timer procChecker;
 
@@ -64,13 +66,59 @@ namespace SpongeBot.Controls
             }
         }
 
-        private string _processName = "Wow-64.exe";
+        private string _processName = Properties.Settings.Default.ProcessName;
         public String ProcessName
         {
             get { return _processName; }
             set
             {
                 _processName = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _hotkeyAction = Properties.Settings.Default.HotkeyAction;
+        public String HotkeyAction
+        {
+            get { return _hotkeyAction; }
+            set
+            {
+                _hotkeyAction = value;
+                
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _hotkeyMod1 = Properties.Settings.Default.HotkeyMod1;
+        public String HotkeyMod1
+        {
+            get { return _hotkeyMod1; }
+            set
+            {
+                _hotkeyMod1 = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _hotkeyMod2 = Properties.Settings.Default.HotkeyMod2;
+        public String HotkeyMod2
+        {
+            get { return _hotkeyMod2; }
+            set
+            {
+                _hotkeyMod2 = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _hotkeyKey = Properties.Settings.Default.HotkeyKey;
+        public String HotkeyKey
+        {
+            get { return _hotkeyKey; }
+            set
+            {
+                _hotkeyKey = value;
+                Properties.Settings.Default.HotkeyKey = value;
                 NotifyPropertyChanged();
             }
         }
@@ -103,9 +151,20 @@ namespace SpongeBot.Controls
 
         public BasicSettingsData(System.Windows.Controls.TextBox processTextfield)
         {
+            //var helper = new WindowInteropHelper(Window.GetWindow(processTextfield));
+            //helper.EnsureHandle();  //get a handle witthout the need to show the window
+            //this.hotkeyListener = new Hotkey.HotkeyListener(helper.Handle);
+
+            Application.Current.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
             procChecker = new Timer(checkProcess, null, -1, -1); // init timer, but don`t start
             processTextfield.IsVisibleChanged += DependentUIElement_IsVisibleChanged;
             processTextfield.KeyUp += (a, b) => { procChecker.Change(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1)); };
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            saveSettings();
         }
 
         private void DependentUIElement_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -162,6 +221,17 @@ namespace SpongeBot.Controls
 
             WinSize = new Size();
             WinLoc = new Point();
+        }
+
+
+
+        internal void saveSettings()
+        {
+            Properties.Settings.Default.ProcessName = ProcessName;
+            Properties.Settings.Default.HotkeyAction = HotkeyAction;
+            Properties.Settings.Default.HotkeyMod1 = HotkeyMod1;
+            Properties.Settings.Default.HotkeyMod2 = HotkeyMod2;
+            Properties.Settings.Default.Save();
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
