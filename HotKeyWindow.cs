@@ -38,7 +38,7 @@ namespace SpongeBot
         {
             log.Debug("Registering Hotkey.");
             var helper = new WindowInteropHelper(this);
-            if (!RegisterHotKey(helper.Handle, HOTKEY_ID, (uint)mod, (uint)key))
+            if (!Utility.NativeMethods.RegisterHotKey(helper.Handle, HOTKEY_ID, (uint)mod, (uint)key))
             {
                 // handle error
                 log.Error("Could not register hotkey!");
@@ -49,7 +49,7 @@ namespace SpongeBot
         {
             log.Debug("Unregister Hotkey");
             var helper = new WindowInteropHelper(this);
-            UnregisterHotKey(helper.Handle, HOTKEY_ID);
+            Utility.NativeMethods.UnregisterHotKey(helper.Handle, HOTKEY_ID);
         }
 
 
@@ -80,18 +80,6 @@ namespace SpongeBot
             }
             return IntPtr.Zero;
         }
-
-        [DllImport("User32.dll")]
-        private static extern bool RegisterHotKey(
-            [In] IntPtr hWnd,
-            [In] int id,
-            [In] uint fsModifiers,
-            [In] uint vk);
-
-        [DllImport("User32.dll")]
-        private static extern bool UnregisterHotKey(
-            [In] IntPtr hWnd,
-            [In] int id);
 
         private HwndSource _source;
         private const int HOTKEY_ID = 9000;

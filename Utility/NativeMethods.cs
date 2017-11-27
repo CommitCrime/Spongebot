@@ -40,5 +40,18 @@ namespace SpongeBot.Utility
         internal static extern bool DeleteObject(IntPtr value);
 
 
+        [DllImport("User32.dll")]
+        internal static extern bool RegisterHotKey(
+          [In] IntPtr hWnd,
+          [In] int id,
+          [In] uint fsModifiers,
+          [In] uint vk);
+
+        [DllImport("User32.dll")]
+        internal static extern bool UnregisterHotKey(
+            [In] IntPtr hWnd,
+            [In] int id);
+
+
     }
 }
