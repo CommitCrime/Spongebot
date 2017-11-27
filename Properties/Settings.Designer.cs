@@ -22,5 +22,65 @@ namespace SpongeBot.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Wow-64")]
+        public string ProcessName {
+            get {
+                return ((string)(this["ProcessName"]));
+            }
+            set {
+                this["ProcessName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/cast Fishing")]
+        public string HotkeyAction {
+            get {
+                return ((string)(this["HotkeyAction"]));
+            }
+            set {
+                this["HotkeyAction"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ALT")]
+        public string HotkeyMod1 {
+            get {
+                return ((string)(this["HotkeyMod1"]));
+            }
+            set {
+                this["HotkeyMod1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<None>")]
+        public string HotkeyMod2 {
+            get {
+                return ((string)(this["HotkeyMod2"]));
+            }
+            set {
+                this["HotkeyMod2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F")]
+        public string HotkeyKey {
+            get {
+                return ((string)(this["HotkeyKey"]));
+            }
+            set {
+                this["HotkeyKey"] = value;
+            }
+        }
     }
 }
