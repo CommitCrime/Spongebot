@@ -31,7 +31,7 @@ namespace SpongeBot.Controls
 
         private void procName_KeyUp(object sender, KeyEventArgs e)
         {
-            // TODO chow tooltip when .exe or some path is entered
+            // TODO show tooltip when .exe or some path is entered
         }
     }
 }
