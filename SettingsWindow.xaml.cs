@@ -28,11 +28,6 @@ namespace SpongeBot
             //img.Source = EquiDistantArchimedeanSpiral.getImage();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            logbox.Height = Double.NaN;
-        }
-
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             logbox.Height = Double.NaN;
