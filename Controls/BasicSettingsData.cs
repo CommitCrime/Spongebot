@@ -18,7 +18,9 @@ namespace SpongeBot.Controls
 
     class BasicSettingsData : INotifyPropertyChanged
     {
-        //private HotkeyListener hotkeyListener;
+        private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private HotkeyListener hotkeyListener;
         #region fiels and properties
         Timer procChecker;
 
@@ -151,12 +153,13 @@ namespace SpongeBot.Controls
 
         public BasicSettingsData(System.Windows.Controls.TextBox processTextfield)
         {
-            //var helper = new WindowInteropHelper(Window.GetWindow(processTextfield));
-            //helper.EnsureHandle();  //get a handle witthout the need to show the window
-            //this.hotkeyListener = new Hotkey.HotkeyListener(helper.Handle);
+            var helper = new WindowInteropHelper(Application.Current.MainWindow);
+            helper.EnsureHandle();  //get a handle witthout the need to show the window
+            hotkeyListener = new Hotkey.HotkeyListener(helper.Handle);
+            hotkeyListener.RegisterHotKey(Utility.Hotkey.Modifier.ALT, Utility.Hotkey.KeyCode.KEY_F);
+            hotkeyListener.OnHotKeyPressed += () => { log.Info(HotkeyAction); };
 
             Application.Current.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-
             procChecker = new Timer(checkProcess, null, -1, -1); // init timer, but don`t start
             processTextfield.IsVisibleChanged += DependentUIElement_IsVisibleChanged;
             processTextfield.KeyUp += (a, b) => { procChecker.Change(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1)); };
