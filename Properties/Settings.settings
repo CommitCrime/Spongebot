@@ -17,5 +17,8 @@
     <Setting Name="HotkeyKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">F</Value>
     </Setting>
+    <Setting Name="CastDuration" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

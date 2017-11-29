@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bot\Bot.cs" />
     <Compile Include="Controls\BasicSettings.xaml.cs">
       <DependentUpon>BasicSettings.xaml</DependentUpon>
     </Compile>

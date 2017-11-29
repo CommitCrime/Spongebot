@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using SpongeBot.Bot;
 using SpongeBot.Hotkey;
 
 namespace SpongeBot.Controls
@@ -138,6 +139,8 @@ namespace SpongeBot.Controls
         }
 
         Size _winSize = new Size();
+        private Bot.Bot bot;
+
         public Size WinSize
         {
             get { return _winSize; }
@@ -157,7 +160,15 @@ namespace SpongeBot.Controls
             helper.EnsureHandle();  //get a handle witthout the need to show the window
             hotkeyListener = new Hotkey.HotkeyListener(helper.Handle);
             hotkeyListener.RegisterHotKey(Utility.Hotkey.Modifier.ALT, Utility.Hotkey.KeyCode.KEY_F);
-            hotkeyListener.OnHotKeyPressed += () => { log.Info(HotkeyAction); };
+            this.bot = new Bot.Bot(new Input.Keyboard.User32_SendInput_VirtualKeycode());
+            hotkeyListener.OnHotKeyPressed += () => {
+                if (this.IsBotRunning)
+                    bot.Stop();
+                else
+                    bot.Start(this.HotkeyAction);
+
+                this.IsBotRunning = !this.IsBotRunning;
+            };
 
             Application.Current.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
             procChecker = new Timer(checkProcess, null, -1, -1); // init timer, but don`t start
@@ -218,7 +229,6 @@ namespace SpongeBot.Controls
         private void notFound()
         {
             IsRunning = false;
-            IsBotRunning = false;
             IsActive = false;
             IsLoggedIn = false;
 

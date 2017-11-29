@@ -82,5 +82,17 @@ namespace SpongeBot.Properties {
                 this["HotkeyKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int CastDuration {
+            get {
+                return ((int)(this["CastDuration"]));
+            }
+            set {
+                this["CastDuration"] = value;
+            }
+        }
     }
 }
