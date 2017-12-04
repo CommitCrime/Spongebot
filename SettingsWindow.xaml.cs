@@ -39,25 +39,43 @@ namespace SpongeBot
             logWatcher.Updated += logWatcher_Updated;
         }
 
-        public void logWatcher_Updated(object sender, EventArgs e)
+        public void logWatcher_Updated(object sender, LogEventArgs e)
         {
-            UpdateLogTextbox(logWatcher.LogContent);
+            UpdateLogTextbox(e.LogEvent);
         }
 
-        public void UpdateLogTextbox(string value)
+        public void UpdateLogTextbox(log4net.Core.LoggingEvent ev)
         {
             // Check whether invoke is required and then invoke as necessary
             if (!Dispatcher.CheckAccess())
             {
                 UI.ExecuteAsync(() =>
                 {
-                    UpdateLogTextbox(value);
+                    UpdateLogTextbox(ev);
                 });
                 return;
             }
 
-            // Set the textbox value
-            logbox.Text = value;
+            // Construct the line we want to log
+            string line = ev.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss,fff") + " [" + ev.ThreadName + "] " + ev.Level + " " + ev.LoggerName + ": " + ev.RenderedMessage;
+            var paragraph = new Paragraph();
+            Run logMessage = new Run(line);
+
+            if(ev.Level  == log4net.Core.Level.Trace)
+                    logMessage.Foreground = System.Windows.Media.Brushes.Gray;
+            else if (ev.Level == log4net.Core.Level.Debug)
+                logMessage.Foreground = System.Windows.Media.Brushes.Green;
+            else if (ev.Level == log4net.Core.Level.Info)
+                logMessage.Foreground = System.Windows.Media.Brushes.DarkGoldenrod;
+            else if (ev.Level == log4net.Core.Level.Warn)
+                logMessage.Foreground = System.Windows.Media.Brushes.OrangeRed;
+            else if (ev.Level == log4net.Core.Level.Error)
+                logMessage.Foreground = System.Windows.Media.Brushes.Red;
+
+
+            paragraph.Inlines.Add(logMessage);
+            logbox.Document.Blocks.Add(paragraph);
+
             logbox.ScrollToEnd();
         }
     }
