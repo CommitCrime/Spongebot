@@ -108,10 +108,12 @@
     <Compile Include="Input\Mouse\Cursor.cs" />
     <Compile Include="Input\Mouse\CursorScreenshot.cs" />
     <Compile Include="Utility\ILogExtensions.cs" />
+    <Compile Include="Utility\LogWatcher.cs" />
     <Compile Include="Utility\NativeMethods.cs" />
     <Compile Include="Utility\UI.cs" />
     <Compile Include="Utility\Screenshot\IScreenshot.cs" />
     <Compile Include="Utility\Screenshot\Screenshot.cs" />
+    <Compile Include="Utility\MemoryAppenderWithEvents.cs" />
     <Page Include="Controls\BasicSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

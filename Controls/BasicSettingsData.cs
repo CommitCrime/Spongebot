@@ -207,14 +207,13 @@ namespace SpongeBot.Controls
 
             String actualProcessName = Path.GetFileNameWithoutExtension(ProcessName);
 
-            Console.WriteLine($"Find process: {actualProcessName}.");
+            log.Trace($"Try to find process: {actualProcessName}.");
             Process[] processes = Process.GetProcessesByName(actualProcessName);
             IsRunning = processes?.Length > 0;
             IntPtr? winHandle = processes?.FirstOrDefault()?.MainWindowHandle;
 
             if (winHandle.HasValue)
             {
-
                 RECT winBounds;
                 GetWindowRect(new HandleRef(this, winHandle.Value), out winBounds);
                 WinLoc = new Point(winBounds.Left, winBounds.Top);
