@@ -52,30 +52,44 @@ namespace SpongeBot.Bot
 
             // 2.1 Listen for catch (can be done parallel)
 
-            Task<bool> listener = Task.Run(function: async () => {
-                Thread.Sleep(5 * 1000);
-                if (cancelTokens.Token.IsCancellationRequested)
-                {
-                    log.Warn("Stop catch listener.");
+            Task<bool> listener = Task.Run(function: () => {
+                try {
+                    Thread.Sleep(5 * 1000);
                     cancelTokens.Token.ThrowIfCancellationRequested();
-                }
 
-                log.Info("Heard catch");
-                return true;
+                    log.Info("Heard catch");
+                    return true;
+                }
+                catch (OperationCanceledException)
+                {
+                    log.Warn("Catch listener was canceled.");
+                    throw;
+                }
             }, cancellationToken: cancelTokens.Token);
 
             // 2.1 Find Bobber
             log.Debug("Try to find bobber.");
-            Task<System.Windows.Point> looker = Task.Run(function: async () => {
-                Thread.Sleep(10 * 1000);
-                if (cancelTokens.Token.IsCancellationRequested)
+            Task<System.Windows.Point> looker = Task.Run(function: () => {
+                try
                 {
-                    log.Warn("Stop Bobber search");
+                    //Check if active && check coordinate
+                    Thread.Sleep(2 * 1000);
                     cancelTokens.Token.ThrowIfCancellationRequested();
+                    Thread.Sleep(2 * 1000);
+                    cancelTokens.Token.ThrowIfCancellationRequested();
+                    Thread.Sleep(2 * 1000);
+                    cancelTokens.Token.ThrowIfCancellationRequested();
+                    Thread.Sleep(2 * 1000);
+                    cancelTokens.Token.ThrowIfCancellationRequested();
+
+                    log.Info("Found Bobber");
+                    return new System.Windows.Point(5, 5);
                 }
-                
-                log.Info("Found Bobber");
-                return new System.Windows.Point(5, 5);
+                catch (OperationCanceledException)
+                {
+                    log.Warn("Bobber search was canceled.");
+                    throw;
+                }
             }, cancellationToken: cancelTokens.Token);
 
             // 3 Click Bobber
