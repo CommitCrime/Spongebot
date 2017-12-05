@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpongeBot.Utility;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,6 +28,29 @@ namespace SpongeBot.Controls
         {
             InitializeComponent();
             this.DataContext = new BasicSettingsData(procName);
+
+            initHotkeyModCmb();
+        }
+
+        private void initHotkeyModCmb()
+        {
+            List<ComboBoxPairs> cbp = new List<ComboBoxPairs>();
+
+            Type enumType = typeof(SpongeBot.Utility.Hotkey.Modifier);
+            var test = Enum.GetValues(enumType);
+            foreach (SpongeBot.Utility.Hotkey.Modifier i in Enum.GetValues(enumType))
+            {
+                String name = Enum.GetName(enumType, i);
+                cbp.Add(new ComboBoxPairs(name, (short)i));
+            }
+
+            cmbHotkey1.DisplayMemberPath = "_Key";
+            cmbHotkey1.SelectedValuePath = "_Value";
+            cmbHotkey1.ItemsSource = cbp;
+
+            cmbHotkey2.DisplayMemberPath = "_Key";
+            cmbHotkey2.SelectedValuePath = "_Value";
+            cmbHotkey2.ItemsSource = cbp;
         }
 
         private void procName_KeyUp(object sender, KeyEventArgs e)

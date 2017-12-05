@@ -61,8 +61,8 @@ namespace SpongeBot
             var paragraph = new Paragraph();
             Run logMessage = new Run(line);
 
-            if(ev.Level  == log4net.Core.Level.Trace)
-                    logMessage.Foreground = System.Windows.Media.Brushes.Gray;
+            if (ev.Level == log4net.Core.Level.Trace)
+                return;
             else if (ev.Level == log4net.Core.Level.Debug)
                 logMessage.Foreground = System.Windows.Media.Brushes.Green;
             else if (ev.Level == log4net.Core.Level.Info)

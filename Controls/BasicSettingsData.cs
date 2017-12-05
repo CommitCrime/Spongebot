@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Interop;
 using SpongeBot.Bot;
 using SpongeBot.Hotkey;
+using SpongeBot.Utility;
 
 namespace SpongeBot.Controls
 {
@@ -92,8 +93,8 @@ namespace SpongeBot.Controls
             }
         }
 
-        private string _hotkeyMod1 = Properties.Settings.Default.HotkeyMod1;
-        public String HotkeyMod1
+        private ComboBoxPairs _hotkeyMod1 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod1, (short)Enum.Parse(typeof(Utility.Hotkey.Modifier), Properties.Settings.Default.HotkeyMod1));
+        public ComboBoxPairs HotkeyMod1
         {
             get { return _hotkeyMod1; }
             set
@@ -103,8 +104,8 @@ namespace SpongeBot.Controls
             }
         }
 
-        private string _hotkeyMod2 = Properties.Settings.Default.HotkeyMod2;
-        public String HotkeyMod2
+        private ComboBoxPairs _hotkeyMod2 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod2, (short)Enum.Parse(typeof(Utility.Hotkey.Modifier), Properties.Settings.Default.HotkeyMod2));
+        public ComboBoxPairs HotkeyMod2
         {
             get { return _hotkeyMod2; }
             set
@@ -241,8 +242,8 @@ namespace SpongeBot.Controls
         {
             Properties.Settings.Default.ProcessName = ProcessName;
             Properties.Settings.Default.HotkeyAction = HotkeyAction;
-            Properties.Settings.Default.HotkeyMod1 = HotkeyMod1;
-            Properties.Settings.Default.HotkeyMod2 = HotkeyMod2;
+            Properties.Settings.Default.HotkeyMod1 = HotkeyMod1._Key;
+            Properties.Settings.Default.HotkeyMod2 = HotkeyMod2._Key;
             Properties.Settings.Default.Save();
         }
 
