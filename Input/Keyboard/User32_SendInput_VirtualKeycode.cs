@@ -17,6 +17,9 @@ namespace SpongeBot.Input.Keyboard
         {
             INPUT Input = new INPUT();
 
+            if (toType.StartsWith("/"))
+                send(Keys.Enter);
+
             foreach(char c in toType)
             {
                 VirtualKey  vKey = new VirtualKey(c);
@@ -46,6 +49,33 @@ namespace SpongeBot.Input.Keyboard
                 releaseModifiers(vKey);
                 Thread.Sleep(new Random().Next(1, 20));
             }
+
+            if (toType.StartsWith("/"))
+                send(Keys.Enter);
+        }
+
+        private void send(Keys key)
+        {
+            INPUT Input = new INPUT();
+            INPUT[] Inputs = new INPUT[2];
+
+            //Set up the INPUT structure
+            Input.type = 1;
+            Input.U.ki.time = 0;
+            Input.U.ki.wVk = (ushort)key; // Set a Virtual Keycode 
+
+            Input.U.ki.wScan = 0;  // We're doing virtual keycodes instead
+
+            //This let's you do a hardware scan instead of a virtual keypress
+            Input.U.ki.dwFlags = KEYEVENTF.VIRTUALKEY;
+
+            Inputs[0] = Input;
+
+            //Prepare a keyup event
+            Input.U.ki.dwFlags = KEYEVENTF.KEYUP;
+            Inputs[1] = Input;
+
+            SendInput((uint)Inputs.Length, Inputs, INPUT.Size);
         }
 
         private void pressModifiers(VirtualKey vKey)

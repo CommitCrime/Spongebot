@@ -52,9 +52,14 @@
 
         <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="5"/>
 
-        <Label Grid.Row="8" Grid.Column="0" FontWeight="SemiBold">Hotkey Action:</Label>
-        
-        <TextBox Grid.Row="8" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0" Text="{Binding HotkeyAction,UpdateSourceTrigger=PropertyChanged}" /> 
+
+        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <Label FontWeight="SemiBold">Hotkey Action:</Label>
+                <TextBox  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0" Text="{Binding HotkeyAction,UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <Label Name="EnterNotice" Visibility="{Binding EnterNoticeVisibility}">Will start &amp; end with Enter.</Label>
+        </StackPanel>
 
         <Separator Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="5"/>
 

@@ -88,7 +88,7 @@ namespace SpongeBot.Controls
             set
             {
                 _hotkeyAction = value;
-                NotifyPropertyChanged();
+                NotifyPropertyChanged("EnterNoticeVisibility");
             }
         }
 
@@ -147,6 +147,14 @@ namespace SpongeBot.Controls
             {
                 _winSize = value;
                 NotifyPropertyChanged();
+            }
+        }
+
+        public Visibility EnterNoticeVisibility
+        {
+            get
+            {
+                return HotkeyAction.StartsWith("/") ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
