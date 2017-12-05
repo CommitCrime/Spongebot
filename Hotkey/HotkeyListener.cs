@@ -46,10 +46,12 @@ namespace SpongeBot.Hotkey
 
         #region native hotkey stuff
 
-        internal void RegisterHotKey(Utility.Hotkey.Modifier mod, Utility.Hotkey.KeyCode key)
+        internal void RegisterHotKey(int modifier, int key)
         {
+            UnregisterHotKey();
+
             log.Debug("Registering Hotkey.");
-            if (!Utility.NativeMethods.RegisterHotKey(this.handle, HOTKEY_ID, (uint)mod, (uint)key))
+            if (!Utility.NativeMethods.RegisterHotKey(this.handle, HOTKEY_ID, (uint)modifier, (uint)key))
             {
                 // handle error
                 log.Error("Could not register hotkey!");

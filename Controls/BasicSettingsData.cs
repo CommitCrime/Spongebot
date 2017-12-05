@@ -158,7 +158,8 @@ namespace SpongeBot.Controls
             var helper = new WindowInteropHelper(Application.Current.MainWindow);
             helper.EnsureHandle();  //get a handle witthout the need to show the window
             hotkeyListener = new Hotkey.HotkeyListener(helper.Handle);
-            hotkeyListener.RegisterHotKey(Utility.Hotkey.Modifier.ALT, Utility.Hotkey.KeyCode.KEY_F);
+            
+            
             this.bot = new Bot.Bot(new Input.Keyboard.User32_SendInput_VirtualKeycode());
             hotkeyListener.OnHotKeyPressed += () => {
                 if (this.IsBotRunning)
@@ -266,9 +267,10 @@ namespace SpongeBot.Controls
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            if (propertyName.Contains("Hotkey"))
+                hotkeyListener.RegisterHotKey(HotkeyMod1._Value | HotkeyMod2._Value, HotkeyKey._Value);
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

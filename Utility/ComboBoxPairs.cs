@@ -25,5 +25,10 @@ namespace SpongeBot.Utility
             ComboBoxPairs other = (ComboBoxPairs)obj;
             return this._Key == other._Key && this._Value == other._Value;
         }
+
+        public override int GetHashCode()
+        {
+            return _Value;
+        }
     }
 }
