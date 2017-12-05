@@ -61,19 +61,7 @@ namespace SpongeBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<None>")]
-        public string HotkeyMod2 {
-            get {
-                return ((string)(this["HotkeyMod2"]));
-            }
-            set {
-                this["HotkeyMod2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F")]
+        [global::System.Configuration.DefaultSettingValueAttribute("KEY_F")]
         public string HotkeyKey {
             get {
                 return ((string)(this["HotkeyKey"]));
@@ -92,6 +80,18 @@ namespace SpongeBot.Properties {
             }
             set {
                 this["CastDuration"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HotkeyMod2 {
+            get {
+                return ((string)(this["HotkeyMod2"]));
+            }
+            set {
+                this["HotkeyMod2"] = value;
             }
         }
     }

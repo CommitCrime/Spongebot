@@ -11,14 +11,14 @@
     <Setting Name="HotkeyMod1" Type="System.String" Scope="User">
       <Value Profile="(Default)">ALT</Value>
     </Setting>
-    <Setting Name="HotkeyMod2" Type="System.String" Scope="User">
-      <Value Profile="(Default)">&lt;None&gt;</Value>
-    </Setting>
     <Setting Name="HotkeyKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F</Value>
+      <Value Profile="(Default)">KEY_F</Value>
     </Setting>
     <Setting Name="CastDuration" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="HotkeyMod2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

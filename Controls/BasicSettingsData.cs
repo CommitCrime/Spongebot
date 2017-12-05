@@ -88,7 +88,6 @@ namespace SpongeBot.Controls
             set
             {
                 _hotkeyAction = value;
-                
                 NotifyPropertyChanged();
             }
         }
@@ -104,7 +103,7 @@ namespace SpongeBot.Controls
             }
         }
 
-        private ComboBoxPairs _hotkeyMod2 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod2, (short)Enum.Parse(typeof(Utility.Hotkey.Modifier), Properties.Settings.Default.HotkeyMod2));
+        private ComboBoxPairs _hotkeyMod2 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod2, String.IsNullOrWhiteSpace(Properties.Settings.Default.HotkeyMod2) ? 0 : (short)Enum.Parse(typeof(Utility.Hotkey.Modifier), Properties.Settings.Default.HotkeyMod2));
         public ComboBoxPairs HotkeyMod2
         {
             get { return _hotkeyMod2; }
@@ -115,14 +114,13 @@ namespace SpongeBot.Controls
             }
         }
 
-        private string _hotkeyKey = Properties.Settings.Default.HotkeyKey;
-        public String HotkeyKey
+        private ComboBoxPairs _hotkeyKey = new ComboBoxPairs(Properties.Settings.Default.HotkeyKey, (short)Enum.Parse(typeof(Utility.Hotkey.KeyCode), Properties.Settings.Default.HotkeyKey));
+        public ComboBoxPairs HotkeyKey
         {
             get { return _hotkeyKey; }
             set
             {
                 _hotkeyKey = value;
-                Properties.Settings.Default.HotkeyKey = value;
                 NotifyPropertyChanged();
             }
         }
@@ -244,6 +242,7 @@ namespace SpongeBot.Controls
             Properties.Settings.Default.HotkeyAction = HotkeyAction;
             Properties.Settings.Default.HotkeyMod1 = HotkeyMod1._Key;
             Properties.Settings.Default.HotkeyMod2 = HotkeyMod2._Key;
+            Properties.Settings.Default.HotkeyKey = HotkeyKey._Key;
             Properties.Settings.Default.Save();
         }
 

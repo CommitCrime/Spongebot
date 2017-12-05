@@ -30,17 +30,22 @@ namespace SpongeBot.Controls
             this.DataContext = new BasicSettingsData(procName);
 
             initHotkeyCmb(cmbHotkey1, typeof(Utility.Hotkey.Modifier));
-            initHotkeyCmb(cmbHotkey2, typeof(Utility.Hotkey.Modifier));
+            initHotkeyCmb(cmbHotkey2, typeof(Utility.Hotkey.Modifier), includeNone: true);
             initHotkeyCmb(cmbHotkeyKey, typeof(Utility.Hotkey.KeyCode));
         }
 
-        private void initHotkeyCmb(ComboBox cmb, Type enumType)
+        private void initHotkeyCmb(ComboBox cmb, Type enumType, bool includeNone = false)
         {
             List<ComboBoxPairs> cbp = new List<ComboBoxPairs>();
 
             var test = Enum.GetValues(enumType);
-            foreach (var i in Enum.GetValues(enumType))
+
+            if (includeNone)
             {
+                cbp.Add(new ComboBoxPairs(null, 0));
+            }
+
+            foreach (var i in Enum.GetValues(enumType)) {
                 String name = Enum.GetName(enumType, i);
                 cbp.Add(new ComboBoxPairs(name, (short)i));
             }
