@@ -6,7 +6,7 @@ using System.Threading;
 namespace SpongeBot.Utility.Hotkey
 {
 
-    internal enum Modifier : short
+    internal enum Modifier : int
     {
         ALT = 0x0001,
         CTRL = 0x0002,
@@ -14,7 +14,7 @@ namespace SpongeBot.Utility.Hotkey
         WIN = 0x0008
     }
 
-
+    /*
 
     internal enum KeyCode : short
     {
@@ -708,6 +708,6 @@ namespace SpongeBot.Utility.Hotkey
         ///Clear key
         ///</summary>
         OEM_CLEAR = 0xFE
-    }
+    }*/
 
 }

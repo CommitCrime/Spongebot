@@ -31,7 +31,7 @@ namespace SpongeBot.Controls
 
             initHotkeyCmb(cmbHotkey1, typeof(Utility.Hotkey.Modifier));
             initHotkeyCmb(cmbHotkey2, typeof(Utility.Hotkey.Modifier), includeNone: true);
-            initHotkeyCmb(cmbHotkeyKey, typeof(Utility.Hotkey.KeyCode));
+            initHotkeyCmb(cmbHotkeyKey, typeof(System.Windows.Forms.Keys));
         }
 
         private void initHotkeyCmb(ComboBox cmb, Type enumType, bool includeNone = false)
@@ -47,7 +47,7 @@ namespace SpongeBot.Controls
 
             foreach (var i in Enum.GetValues(enumType)) {
                 String name = Enum.GetName(enumType, i);
-                cbp.Add(new ComboBoxPairs(name, (short)i));
+                cbp.Add(new ComboBoxPairs(name, (int)i));
             }
 
             cmb.DisplayMemberPath = "_Key";

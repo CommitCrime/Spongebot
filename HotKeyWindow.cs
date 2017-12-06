@@ -34,7 +34,7 @@ namespace SpongeBot
         internal abstract void OnHotKeyPressed();
 
         #region native hotkey stuff
-        internal void RegisterHotKey(Utility.Hotkey.Modifier mod, Utility.Hotkey.KeyCode key)
+        internal void RegisterHotKey(Utility.Hotkey.Modifier mod, System.Windows.Forms.Keys key)
         {
             log.Debug("Registering Hotkey.");
             var helper = new WindowInteropHelper(this);

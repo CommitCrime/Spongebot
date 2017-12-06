@@ -61,7 +61,7 @@ namespace SpongeBot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("KEY_F")]
+        [global::System.Configuration.DefaultSettingValueAttribute("F")]
         public string HotkeyKey {
             get {
                 return ((string)(this["HotkeyKey"]));
