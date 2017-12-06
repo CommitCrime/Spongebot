@@ -173,7 +173,7 @@ namespace SpongeBot.Controls
                 if (this.IsBotRunning)
                     bot.Stop();
                 else
-                    bot.Start(this.HotkeyAction);
+                    bot.Start("\r"+this.HotkeyAction+"\r");
 
                 this.IsBotRunning = !this.IsBotRunning;
             };

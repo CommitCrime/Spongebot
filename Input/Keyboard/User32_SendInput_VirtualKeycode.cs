@@ -19,43 +19,13 @@ namespace SpongeBot.Input.Keyboard
     {
         public void SendString(string toType)
         {
-            INPUT Input = new INPUT();
-
-            if (toType.StartsWith("/"))
-                send(Keys.Enter);
-
             foreach(char c in toType)
             {
                 VirtualKey  vKey = new VirtualKey(c);
-                pressModifiers(vKey); //Press e.g. shift
 
-                INPUT[] Inputs = new INPUT[2];
-
-
-                //Set up the INPUT structure
-                Input.type = 1;
-                Input.U.ki.time = 0;
-                Input.U.ki.wVk = vKey.VKey; // Set a Virtual Keycode 
-
-                Input.U.ki.wScan = 0;  // We're doing virtual keycodes instead
-
-                //This let's you do a hardware scan instead of a virtual keypress
-                Input.U.ki.dwFlags = KEYEVENTF.VIRTUALKEY;
-
-                Inputs[0] = Input;
-
-                //Prepare a keyup event
-                Input.U.ki.dwFlags = KEYEVENTF.KEYUP;
-                Inputs[1] = Input;
-
-                SendInput((uint)Inputs.Length, Inputs, INPUT.Size);
-
-                releaseModifiers(vKey);
+                vKey.Send();
                 Thread.Sleep(new Random().Next(1, 20));
             }
-
-            if (toType.StartsWith("/"))
-                send(Keys.Enter);
         }
 
         private void send(Keys key)
@@ -82,49 +52,6 @@ namespace SpongeBot.Input.Keyboard
             SendInput((uint)Inputs.Length, Inputs, INPUT.Size);
         }
 
-        private void pressModifiers(VirtualKey vKey)
-        {
-            foreach (VirtualKey modifier in vKey.Modifiers)
-            {
-                INPUT Input = new INPUT();
-                INPUT[] Inputs = new INPUT[1];
-
-                //Set up the INPUT structure
-                Input.type = 1;
-                Input.U.ki.time = 0;
-                Input.U.ki.wVk = modifier.VKey;
-                Input.U.ki.wScan = 0;  //would ne the unicode charcter
-
-                //This let's you do a hardware scan instead of a virtual keypress
-                Input.U.ki.dwFlags = KEYEVENTF.VIRTUALKEY;
-
-                Inputs[0] = Input;
-
-                SendInput((uint)Inputs.Length, Inputs, INPUT.Size);
-            }
-        }
-
-        private void releaseModifiers(VirtualKey vKey)
-        {
-            foreach(VirtualKey modifier in vKey.Modifiers)
-            {
-                INPUT Input = new INPUT();
-
-                INPUT[] Inputs = new INPUT[1];
-
-                //Set up the INPUT structure
-                Input.type = 1;
-                Input.U.ki.time = 0;
-                Input.U.ki.wVk = modifier.VKey; //there are additional codes for left and right shift
-                Input.U.ki.wScan = 0;  //would ne the unicode charcter
-
-                //This let's you do a hardware scan instead of a virtual keypress
-
-                Input.U.ki.dwFlags = KEYEVENTF.KEYUP;
-                Inputs[0] = Input;
-
-                SendInput((uint)Inputs.Length, Inputs, INPUT.Size);
-            }
-        }
+       
     }
 }
