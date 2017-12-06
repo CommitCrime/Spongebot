@@ -45,7 +45,7 @@ namespace SpongeBot
             botTimer = new Timer(doFish, null, -1, -1);
 
             log.Debug("Initialize Hotkey");
-            base.RegisterHotKey(Utility.Hotkey.Modifier.CTRL, System.Windows.Forms.Keys.A);
+            base.RegisterHotKey(Input.Keyboard.Modifier.CTRL, System.Windows.Forms.Keys.A);
 
             log.Debug("Register global hook lib.");
             m_GlobalHook = Hook.GlobalEvents();

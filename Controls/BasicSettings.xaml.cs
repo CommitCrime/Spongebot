@@ -29,8 +29,8 @@ namespace SpongeBot.Controls
             InitializeComponent();
             this.DataContext = new BasicSettingsData(procName);
 
-            initHotkeyCmb(cmbHotkey1, typeof(Utility.Hotkey.Modifier));
-            initHotkeyCmb(cmbHotkey2, typeof(Utility.Hotkey.Modifier), includeNone: true);
+            initHotkeyCmb(cmbHotkey1, typeof(Input.Keyboard.Modifier));
+            initHotkeyCmb(cmbHotkey2, typeof(Input.Keyboard.Modifier));
             initHotkeyCmb(cmbHotkeyKey, typeof(System.Windows.Forms.Keys));
         }
 

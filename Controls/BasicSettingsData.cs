@@ -92,7 +92,7 @@ namespace SpongeBot.Controls
             }
         }
 
-        private ComboBoxPairs _hotkeyMod1 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod1, (int)Enum.Parse(typeof(Utility.Hotkey.Modifier), Properties.Settings.Default.HotkeyMod1));
+        private ComboBoxPairs _hotkeyMod1 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod1, (int)Enum.Parse(typeof(Input.Keyboard.Modifier), Properties.Settings.Default.HotkeyMod1));
         public ComboBoxPairs HotkeyMod1
         {
             get { return _hotkeyMod1; }
@@ -103,7 +103,7 @@ namespace SpongeBot.Controls
             }
         }
 
-        private ComboBoxPairs _hotkeyMod2 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod2, String.IsNullOrWhiteSpace(Properties.Settings.Default.HotkeyMod2) ? 0 : (int)Enum.Parse(typeof(Utility.Hotkey.Modifier), Properties.Settings.Default.HotkeyMod2));
+        private ComboBoxPairs _hotkeyMod2 = new ComboBoxPairs(Properties.Settings.Default.HotkeyMod2, String.IsNullOrWhiteSpace(Properties.Settings.Default.HotkeyMod2) ? 0 : (int)Enum.Parse(typeof(Input.Keyboard.Modifier), Properties.Settings.Default.HotkeyMod2));
         public ComboBoxPairs HotkeyMod2
         {
             get { return _hotkeyMod2; }
