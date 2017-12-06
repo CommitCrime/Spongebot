@@ -88,7 +88,7 @@
     <Compile Include="Input\Keyboard\User32_SendInput_VirtualKeycode.cs" />
     <Compile Include="Input\Keyboard\User32_SendInput_Unicode.cs" />
     <Compile Include="Input\Keyboard\User32_SendInput.cs" />
-    <Compile Include="Input\Keyboard\VirtualKeyShort.cs" />
+    <Compile Include="Input\Keyboard\VirtualKey.cs" />
     <Compile Include="Input\Mouse\IClick.cs" />
     <Compile Include="Input\Mouse\ICursor.cs" />
     <Compile Include="Input\Mouse\IPosition.cs" />

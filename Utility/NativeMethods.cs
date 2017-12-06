@@ -10,8 +10,6 @@ namespace SpongeBot.Utility
     class NativeMethods
     {
 
-
-
         /// <summary>
         /// https://stackoverflow.com/a/10077805
         /// </summary>
@@ -52,6 +50,11 @@ namespace SpongeBot.Utility
             [In] IntPtr hWnd,
             [In] int id);
 
+
+
+
+        [DllImport("user32.dll")]
+        internal static extern ushort VkKeyScan(char ch);
 
     }
 }

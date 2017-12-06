@@ -1,12 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace SpongeBot.Input.Keyboard
 {
-    internal enum VirtualKeyShort : short
+    class VirtualKey
+    {
+        public ushort VKey { get; }
+        #region properties
+        public bool ShiftNeeded {
+            get
+            {
+                return ((VKey >> 8 & 1) != 0);
+            }
+        }
+        public bool CtrlNeeded
+        {
+            get
+            {
+                return ((VKey >> 8 & 2) != 0);
+            }
+        }
+        public bool AltNeeded
+        {
+            get
+            {
+                return ((VKey >> 8 & 4) != 0);
+            }
+        }
+
+        List<VirtualKey> _modifiers = new List<VirtualKey>();
+        public List<VirtualKey> Modifiers
+        {
+            get
+            {
+                return _modifiers;
+            }
+        }
+        #endregion
+
+        public VirtualKey(Keys vKeyCode) : this((ushort)vKeyCode) { }
+        public VirtualKey(char c) : this(Utility.NativeMethods.VkKeyScan(c)) { }
+        public VirtualKey(ushort vKeyCode)
+        {
+            this.VKey = vKeyCode;
+
+            if (ShiftNeeded)
+                _modifiers.Add(new VirtualKey(Keys.ShiftKey));  //there are additional codes for left and right modifier keys
+            if (CtrlNeeded)
+                _modifiers.Add(new VirtualKey(Keys.ControlKey));
+            if (AltNeeded)
+                _modifiers.Add(new VirtualKey(Keys.Menu)); //Menu == alt, alt is something
+        }
+    }
+
+    internal enum VirtualKeys : short
     {
         ///<summary>
         ///Left mouse button

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -127,60 +126,5 @@ namespace SpongeBot.Input.Keyboard
                 SendInput((uint)Inputs.Length, Inputs, INPUT.Size);
             }
         }
-    }
-
-    class VirtualKey
-    {
-        public ushort VKey { get; }
-        public bool ShiftNeeded {
-            get
-            {
-                return ((VKey >> 8 & 1) != 0);
-            }
-        }
-        public bool CtrlNeeded
-        {
-            get
-            {
-                return ((VKey >> 8 & 2) != 0);
-            }
-        }
-        public bool AltNeeded
-        {
-            get
-            {
-                return ((VKey >> 8 & 4) != 0);
-            }
-        }
-
-        public VirtualKey(Keys vKeyCode)
-        {
-            this.VKey = (ushort)vKeyCode;
-        }
-
-
-        public VirtualKey(char c)
-        {
-            this.VKey = VkKeyScan(c);
-        }
-
-        public List<VirtualKey> Modifiers
-        {
-            get
-            {
-                List<VirtualKey> modifiers = new List<VirtualKey>();
-                if (ShiftNeeded)
-                    modifiers.Add(new VirtualKey(Keys.ShiftKey));  //there are additional codes for left and right modifier keys
-                if (CtrlNeeded)
-                    modifiers.Add(new VirtualKey(Keys.ControlKey));
-                if (AltNeeded)
-                    modifiers.Add(new VirtualKey(Keys.Menu)); //Menu == alt, alt is something
-
-                return modifiers;
-            }
-        }
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern ushort VkKeyScan(char ch);
     }
 }
