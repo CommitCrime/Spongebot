@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpongeBot.Utility
+namespace SpongeBot.Utility.ImageResize
 {
     class BicubicImageResize : IImageResize
     {
