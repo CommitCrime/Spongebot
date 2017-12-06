@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{16A9C82F-8DA0-4B6E-93BD-88ADC2F1434A}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpongeBot</RootNamespace>
     <AssemblyName>SpongeBot</AssemblyName>
@@ -111,13 +111,12 @@
     <Compile Include="Utility\ImageResize\IImageResize.cs" />
     <Compile Include="Input\Mouse\Cursor.cs" />
     <Compile Include="Input\Mouse\CursorScreenshot.cs" />
-    <Compile Include="Utility\ILogExtensions.cs" />
-    <Compile Include="Utility\LogWatcher.cs" />
+    <Compile Include="Utility\Logging\ILogExtensions.cs" />
     <Compile Include="Utility\NativeMethods.cs" />
-    <Compile Include="Utility\UI.cs" />
-    <Compile Include="Utility\Screenshot\IScreenshot.cs" />
-    <Compile Include="Utility\Screenshot\Screenshot.cs" />
-    <Compile Include="Utility\MemoryAppenderWithEvents.cs" />
+    <Compile Include="Utility\Screen\ScreenHelper.cs" />
+    <Compile Include="Utility\Screen\IScreenshot.cs" />
+    <Compile Include="Utility\Screen\Screenshot.cs" />
+    <Compile Include="Utility\Logging\LogWatcher.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

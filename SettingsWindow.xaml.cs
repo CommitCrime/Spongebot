@@ -23,6 +23,8 @@ namespace SpongeBot
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        private log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         LogWatcher logWatcher;
 
         public SettingsWindow()
@@ -35,11 +37,12 @@ namespace SpongeBot
             this.SizeToContent = SizeToContent.Manual;
             logbox.Height = Double.NaN;
             // Create a LogFileWatcher to display the log and bind the log textbox to it
-            logWatcher = new LogWatcher();
-            logWatcher.Updated += logWatcher_Updated;
+            logWatcher = LogWatcher.get();
+            logWatcher.LogEvent += logWatcher_LogEvent;
+            log.Info("Display logmessages in textbox");
         }
 
-        public void logWatcher_Updated(object sender, LogEventArgs e)
+        public void logWatcher_LogEvent(object sender, LogEventArgs e)
         {
             UpdateLogTextbox(e.LogEvent);
         }
@@ -49,7 +52,7 @@ namespace SpongeBot
             // Check whether invoke is required and then invoke as necessary
             if (!Dispatcher.CheckAccess())
             {
-                UI.ExecuteAsync(() =>
+                App.ExecuteAsync(() =>
                 {
                     UpdateLogTextbox(ev);
                 });

@@ -12,7 +12,7 @@ namespace SpongeBot.Input.Mouse
     /// <summary>
     /// https://stackoverflow.com/a/9078102
     /// </summary>
-    class CursorScreenshot : SpongeBot.Utility.Screenshot
+    class CursorScreenshot : Utility.Screen.Screenshot
     {
         [StructLayout(LayoutKind.Sequential)]
         struct CURSORINFO

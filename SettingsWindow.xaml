@@ -35,7 +35,7 @@
             </Grid>
         </Border>
         <controls:ScreenshotControl DockPanel.Dock="Top"/>
-        <StatusBar DockPanel.Dock="Bottom" Height="15"/>
+        <StatusBar Visibility="Collapsed" DockPanel.Dock="Bottom" Height="15"/>
         <RichTextBox DockPanel.Dock="Top" x:Name="logbox" MinHeight="150" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">

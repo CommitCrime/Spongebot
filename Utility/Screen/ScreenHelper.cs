@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SpongeBot.Utility
+namespace SpongeBot.Utility.Screen
 {
-    class UI
+    class ScreenHelper
     {
         public static double getWidthScalingFactor()
         {

@@ -1,6 +1,7 @@
 ﻿using Gma.System.MouseKeyHook;
 using NAudio.CoreAudioApi;
 using SpongeBot.Utility;
+using SpongeBot.Utility.Screen;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -141,8 +142,8 @@ namespace SpongeBot
             //Point F_initialMousePos = MouseInteropHelper.getCursorPos();
             Input.Mouse.User32_MousePosition mousePos = new Input.Mouse.User32_MousePosition();
 
-            double screenWidth = UI.getActualPrimaryScreenWidth();
-            double screenHeight = UI.getActualPrimaryScreenHeight();
+            double screenWidth = ScreenHelper.getActualPrimaryScreenWidth();
+            double screenHeight = ScreenHelper.getActualPrimaryScreenHeight();
 
             Point rectLocation = mousePos.GetCursorPos(); //get MousePos --> center of new rect
             log.Debug($"Start searching for hook at {rectLocation.ToString()}.");
@@ -192,7 +193,7 @@ namespace SpongeBot
 
             fiveSeconds = new Timer((state) =>
             {
-                UI.ExecuteAsync(() => { Screenshot_Now(sender, e); });
+                App.ExecuteAsync(() => { Screenshot_Now(sender, e); });
             }, null, TimeSpan.FromSeconds(5), TimeSpan.FromMilliseconds(-1));
         }
 
@@ -203,7 +204,7 @@ namespace SpongeBot
             if (this.includeCursor.IsChecked == true)
                 screenshotImg = new Input.Mouse.CursorScreenshot().GetScreenshot();
             else
-                screenshotImg = new Utility.Screenshot().GetScreenshot();
+                screenshotImg = new Utility.Screen.Screenshot().GetScreenshot();
 
             //screenshotImg = new Utility.BicubicImageResize().ResizeImage(screenshotImg, new System.Drawing.Size(256, 144));
             BitmapSource screenStream = SpongeBot.Utility.NativeMethods.GetImageStream(screenshotImg);

@@ -43,7 +43,7 @@ namespace SpongeBot.Input.Mouse
             CURSORINFO pci;
             pci.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(CURSORINFO));
 
-            Bitmap target = new Bitmap(32 * (int)Utility.UI.getWidthScalingFactor(), 32 * (int) Utility.UI.getHeightScalingFactor());
+            Bitmap target = new Bitmap(32 * (int)Utility.Screen.ScreenHelper.getWidthScalingFactor(), 32 * (int) Utility.Screen.ScreenHelper.getHeightScalingFactor());
 
             using (Graphics g = Graphics.FromImage(target))
             {

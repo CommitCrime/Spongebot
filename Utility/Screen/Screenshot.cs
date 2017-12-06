@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpongeBot.Utility
+namespace SpongeBot.Utility.Screen
 {
     class Screenshot : IScreenshot
     {
         public Bitmap GetScreenshot()
         {
-            int screenWidth = (int)UI.getActualPrimaryScreenWidth();
-            int screenHeight = (int)UI.getActualPrimaryScreenHeight();
+            int screenWidth = (int)ScreenHelper.getActualPrimaryScreenWidth();
+            int screenHeight = (int)ScreenHelper.getActualPrimaryScreenHeight();
 
             Bitmap target = new Bitmap(screenWidth, screenHeight);
 

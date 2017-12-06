@@ -36,7 +36,7 @@ namespace SpongeBot.CoordinateProvider
         }
 
         public RectSpiral(Rect area) : this(area, DEFAULT_STEPSIZE) { }
-        public RectSpiral(double step) : this(new Rect(0, 0, Utility.UI.getActualPrimaryScreenWidth(), Utility.UI.getActualPrimaryScreenHeight()), step) { }
+        public RectSpiral(double step) : this(new Rect(0, 0, Utility.Screen.ScreenHelper.getActualPrimaryScreenWidth(), Utility.Screen.ScreenHelper.getActualPrimaryScreenHeight()), step) { }
         public RectSpiral(Rect area, double step)
         {
             this.area = area;

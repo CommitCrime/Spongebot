@@ -36,7 +36,7 @@ namespace SpongeBot.Controls
             log.Debug($"Will take a screenshot in {this.slDelay.Value}s");
             executeDelayed(() =>
             {
-                new PreviewWindow(new Utility.Screenshot().GetScreenshot(), 0.5).Show();
+                new PreviewWindow(new Utility.Screen.Screenshot().GetScreenshot(), 0.5).Show();
             });
         }
 
@@ -56,7 +56,7 @@ namespace SpongeBot.Controls
 
             delay = new Timer((state) =>
             {
-                UI.ExecuteAsync(exec);
+                App.ExecuteAsync(exec);
             }, null, TimeSpan.FromSeconds(this.slDelay.Value), TimeSpan.FromMilliseconds(-1));
         }
 
